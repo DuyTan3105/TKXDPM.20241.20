@@ -1,0 +1,30 @@
+package org.example.backend.entities.order;
+
+import jakarta.persistence.*;
+import lombok.*;
+import org.example.backend.entities.BaseEntity;
+import org.example.backend.entities.cart.Cart;
+import org.example.backend.entities.delivery.DeliveryInfo;
+
+import java.util.List;
+@Entity
+@Table(name = "orders")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder
+public class Order extends BaseEntity {
+    @OneToOne
+    @JoinColumn(name = "cart_id")
+    private Cart cart;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItem> listOrderItem;
+
+    @OneToOne
+    @JoinColumn(name = "delivery_info_id")
+    private DeliveryInfo deliveryInfo;
+    private int totalAmount;
+    private String status;
+}
