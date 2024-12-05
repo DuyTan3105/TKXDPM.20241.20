@@ -15,7 +15,7 @@ Managing Group 1 project in the ITSS Software Development course in the 2024.1 s
 
 | Student ID | Full Name              | Role   | 
 | ---------- | -----------------------|--------|
-| 20215478   | Mguyễn Duy Tấn         | Leader |
+| 20215478   | Nguyễn Duy Tấn         | Leader |
 | 20215479   | Nguyễn Văn Tấn         | Member |
 | 20194167   | Lù Mạnh Thắng          | Member |
 | 20215477   | Lưu Trọng Tấn          | Member |
