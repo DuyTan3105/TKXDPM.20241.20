@@ -6,6 +6,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.example.backend.entities.BaseEntity;
 import org.example.backend.entities.order.Order;
 import org.example.backend.entities.payment.PaymentTransaction;
@@ -17,7 +18,7 @@ import org.example.backend.entities.payment.PaymentTransaction;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 public class Invoice extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "order_id")

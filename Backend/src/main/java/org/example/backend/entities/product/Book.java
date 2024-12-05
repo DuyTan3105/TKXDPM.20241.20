@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.PrimaryKeyJoinColumn;
 import jakarta.persistence.Table;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Date;
 @Entity
@@ -13,7 +14,7 @@ import java.util.Date;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @DiscriminatorValue("BOOK")
 @PrimaryKeyJoinColumn(name = "book_id")
 public class Book extends Product {
