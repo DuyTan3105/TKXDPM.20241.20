@@ -2,6 +2,7 @@ package org.example.backend.entities.product;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.example.backend.entities.BaseEntity;
 
 @Entity
@@ -10,7 +11,7 @@ import org.example.backend.entities.BaseEntity;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name = "category")
 public class Product extends BaseEntity {

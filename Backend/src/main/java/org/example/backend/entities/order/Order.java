@@ -2,6 +2,7 @@ package org.example.backend.entities.order;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.example.backend.entities.BaseEntity;
 import org.example.backend.entities.cart.Cart;
 import org.example.backend.entities.delivery.DeliveryInfo;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 public class Order extends BaseEntity {
     @OneToOne
     @JoinColumn(name = "cart_id")

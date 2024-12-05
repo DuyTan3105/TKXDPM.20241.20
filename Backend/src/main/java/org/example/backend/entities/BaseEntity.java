@@ -6,6 +6,7 @@ import jakarta.persistence.PrePersist;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.util.Random;
 
@@ -13,6 +14,7 @@ import java.util.Random;
 @AllArgsConstructor
 @NoArgsConstructor
 @MappedSuperclass
+@SuperBuilder
 public class BaseEntity {
     @Id
     private String id;

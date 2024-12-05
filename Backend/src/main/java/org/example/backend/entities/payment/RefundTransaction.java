@@ -4,6 +4,7 @@ package org.example.backend.entities.payment;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.example.backend.entities.BaseEntity;
 
 @Entity
@@ -12,7 +13,7 @@ import org.example.backend.entities.BaseEntity;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
+@SuperBuilder
 public class RefundTransaction extends BaseEntity {
 
     private String message;

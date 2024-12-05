@@ -1,0 +1,47 @@
+server:
+  port: 8080
+
+time:
+  zone: Asia/Bangkok
+
+spring:
+  application:
+    name: aims
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/aims?createDatabaseIfNotExist=true&useSSL=false&serverTimezone=Asia/Bangkok
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: #password
+    hikari:
+      maximum-pool-size: 20
+      connection-timeout: 30000
+      idle-timeout: 10000
+      minimum-idle: 10
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+
+token:
+  type: Bearer
+  expiration: 2592000 # 30 days
+  secretKey: a5RsQm2rhY3GMgD51qK3E+aYPoe5IsnfYD0QFydCoQ0=
+  expiration-refresh-token: 5184000 # 60 days
+
+api:
+  prefix: /api/v1
+
+swagger:
+  service:
+    title: API Document
+    version: 1.0
+    api-docs: clb.prd03.dev
+    server: localhost:8081
+
+
+
