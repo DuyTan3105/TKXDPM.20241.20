@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class DeliveryInfoImpl implements DeliveryInfoService {
+public class DeliveryInfoServiceImpl implements DeliveryInfoService {
     private final DeliveryInfoRepo deliveryInfoRepo;
     @Override
     public ResponseEntity<AIMSResponse<Object>> createDeliveryInfo(DeliveryInfo deliveryInfo) {
