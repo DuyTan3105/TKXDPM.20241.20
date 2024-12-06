@@ -1,7 +1,6 @@
 package org.example.backend.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.constants.Constants;
 import org.example.backend.dtos.responses.AIMSResponse;
 import org.example.backend.entities.invoice.Invoice;
 import org.example.backend.services.InvoiceService;
@@ -19,9 +18,7 @@ public class InvoiceController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<AIMSResponse<Invoice>> create(@RequestBody Invoice invoice) {
-//        Invoice data =  invoiceService.create(invoice);
-//        AIMSResponse<Invoice> response = new AIMSResponse<>(Constants.SUCCESS_CODE, "Create invoice successfully", data);
-//        return ResponseEntity.ok(response);
+    public ResponseEntity<AIMSResponse<Object>> create(@RequestBody Invoice invoice) {
+        return invoiceService.create(invoice);
     }
 }
