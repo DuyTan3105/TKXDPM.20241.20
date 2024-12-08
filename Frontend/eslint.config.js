@@ -33,6 +33,9 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      "no-unused-vars": "warn", // Cảnh báo khi có biến không sử dụng
+      "react/prop-types": "off", // Tắt cảnh báo PropTypes,
+      'import/no-unresolved': 'error', // Báo lỗi khi import sai
     },
   },
 ]
