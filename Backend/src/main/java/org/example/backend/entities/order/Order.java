@@ -17,8 +17,6 @@ public class Order {
     @Id
     private String orderId;
     private String cartId;
-    // Vấn đề 1: Truy cập trực tiếp listOrderItem làm tăng Stamp Coupling.
-    // Giải pháp: Có thể đổi cách lưu trữ (chỉ lưu bằng id) hoặc cung cấp các phương thức thêm, xóa, hoặc truy xuất an toàn.
     private List<OrderItem> listOrderItem;
     private DeliveryInfo deliveryInfo;
     private int totalAmount;
