@@ -67,32 +67,32 @@ const Home = () => {
 
   return (
     <div>
-      <div className="border-b-4">
-        <div className="flex justify-between px-10 py-5">
-          <h1 className="text-2xl font-bold">Products</h1>
+      <div css="border-b-4">
+        <div css="flex justify-between px-10 py-5">
+          <h1 css="text-2xl font-bold">Products</h1>
 
-          <div className="space-x-2 flex">
+          <div css="space-x-2 flex">
             <input
               type="text"
               value={searchQuery}
               onChange={handleSearch}
               placeholder="Search by title"
-              className="border rounded-3xl py-2 px-4"
+              css="border rounded-3xl py-2 px-4"
             />
             <button
-              className={`font-bold py-2 px-4 rounded-3xl ${sortType === "default" ? "bg-gray-500 text-white" : "border"}`}
+              css={`font-bold py-2 px-4 rounded-3xl ${sortType === "default" ? "bg-gray-500 text-white" : "border"}`}
               onClick={() => handleSort("default")}
             >
               Default
             </button>
             <button
-              className={`font-bold py-2 px-4 rounded-3xl ${sortType === "priceAsc" ? "bg-gray-500 text-white" : "border"}`}
+              css={`font-bold py-2 px-4 rounded-3xl ${sortType === "priceAsc" ? "bg-gray-500 text-white" : "border"}`}
               onClick={() => handleSort("priceAsc")}
             >
               Price Asc
             </button>
             <button
-              className={`font-bold py-2 px-4 rounded-3xl ${sortType === "priceDesc" ? "bg-gray-500 text-white" : "border"}`}
+              css={`font-bold py-2 px-4 rounded-3xl ${sortType === "priceDesc" ? "bg-gray-500 text-white" : "border"}`}
               onClick={() => handleSort("priceDesc")}
             >
               Price Desc
@@ -100,7 +100,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className="mt-20 grid grid-cols-4 gap-8 px-10">
+      <div css="mt-20 grid grid-cols-4 gap-8 px-10">
         {filteredProducts.map((product) => (
           <ItemCard key={product.id} product={product} onViewDetail={handleClickItemCard} />
         ))}

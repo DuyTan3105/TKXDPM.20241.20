@@ -8,18 +8,18 @@ const Cart = () => {
 
   return (
     <div>
-      <div className="flex px-40 justify-between shadow-sm py-10">
-        <div className="text-2xl font-bold">1. Shopping Cart</div>
-        <h1 className="text-2xl font-bold text-gray-300	 ">
+      <div css="flex px-40 justify-between shadow-sm py-10">
+        <div css="text-2xl font-bold">1. Shopping Cart</div>
+        <h1 css="text-2xl font-bold text-gray-300	 ">
           2. Shipping Details
         </h1>
-        <h1 className="text-2xl font-bold text-gray-300	">3. Payment Options</h1>
+        <h1 css="text-2xl font-bold text-gray-300	">3. Payment Options</h1>
       </div>
 
-      <div className="px-40 ">
-        <div className="flex justify-between">
+      <div css="px-40 ">
+        <div css="flex justify-between">
           <div>
-            <div className=" font-bold my-10 text-xl">Shopping Cart</div>
+            <div css=" font-bold my-10 text-xl">Shopping Cart</div>
 
             <div>
               {item?.map((product) => (
@@ -30,15 +30,15 @@ const Cart = () => {
           <Summary />
         </div>
 
-        <div className="flex pl-10 mt-10">
+        <div css="flex pl-10 mt-10">
           <Link to="/shipping">
-            <div className="bg-black text-white px-20 py-2 rounded-xl mr-4">
+            <div css="bg-black text-white px-20 py-2 rounded-xl mr-4">
               Place Order
             </div>
           </Link>
 
           <Link to="/">
-            <div className="px-20 py-2 rounded-xl border">Cancel all</div>
+            <div css="px-20 py-2 rounded-xl border">Cancel all</div>
           </Link>
         </div>
       </div>

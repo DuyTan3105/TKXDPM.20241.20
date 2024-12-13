@@ -68,43 +68,43 @@ const OrderManager = () => {
   };
 
   return (
-    <div className="p-6">
-      <h1 className="text-2xl mb-4">Order</h1>
+    <div css="p-6">
+      <h1 css="text-2xl mb-4">Order</h1>
 
-      <table className="w-full table-auto">
+      <table css="w-full table-auto">
         <thead>
           <tr>
-            <th className="px-4 py-2">Id</th>
-            <th className="px-4 py-2">Cart ID</th>
-            <th className="px-4 py-2">Total Amount</th>
-            <th className="px-4 py-2">Status</th>
-            <th className="px-4 py-2">Action</th>
+            <th css="px-4 py-2">Id</th>
+            <th css="px-4 py-2">Cart ID</th>
+            <th css="px-4 py-2">Total Amount</th>
+            <th css="px-4 py-2">Status</th>
+            <th css="px-4 py-2">Action</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((order) => (
-            <tr className="h-16" key={order.id}>
-              <td className="border px-4 py-2">{order.orderId}</td>
-              <td className="border px-4 py-2">{order.cartId}</td>
-              <td className="border px-4 py-2">{order.totalAmount}</td>
-              <td className="border px-4 py-2">{order.status.toUpperCase()}</td>
-              <td className="border px-4 py-2">
+            <tr css="h-16" key={order.id}>
+              <td css="border px-4 py-2">{order.orderId}</td>
+              <td css="border px-4 py-2">{order.cartId}</td>
+              <td css="border px-4 py-2">{order.totalAmount}</td>
+              <td css="border px-4 py-2">{order.status.toUpperCase()}</td>
+              <td css="border px-4 py-2">
                 {order.status === "pending" && (
                   <>
                     <button
-                      className="border-2 rounded-2xl px-4 py-2 mr-2"
+                      css="border-2 rounded-2xl px-4 py-2 mr-2"
                       onClick={() => handleApproveOrder(order.orderId)}
                     >
                       Approve
                     </button>
                     <button
-                      className="border-2 rounded-2xl px-4 py-2 mr-2"
+                      css="border-2 rounded-2xl px-4 py-2 mr-2"
                       onClick={() => handleRejectOrder(order.orderId)}
                     >
                       Reject
                     </button>
                     <button
-                      className="border-2 rounded-2xl px-4 py-2 mr-2"
+                      css="border-2 rounded-2xl px-4 py-2 mr-2"
                       onClick={() => handleViewOrder(order.orderId)}
                     >
                       View
