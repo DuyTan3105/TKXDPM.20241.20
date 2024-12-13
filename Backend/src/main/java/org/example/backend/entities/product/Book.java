@@ -1,22 +1,15 @@
 package org.example.backend.entities.product;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
+
 import lombok.*;
-import lombok.experimental.SuperBuilder;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
-@Entity
-@Table(name = "books")
-@Getter
-@Setter
+
+@Document(collection = "product")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-@DiscriminatorValue("BOOK")
-@PrimaryKeyJoinColumn(name = "book_id")
 public class Book extends Product {
     String author;
     String coverType;

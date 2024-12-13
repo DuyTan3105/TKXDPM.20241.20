@@ -1,7 +1,7 @@
 package org.example.backend.repositories;
 
 import org.example.backend.entities.delivery.DeliveryInfo;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface DeliveryInfoRepo extends JpaRepository<DeliveryInfo, String> {
+public interface DeliveryInfoRepo extends MongoRepository<DeliveryInfo, String> {
 }

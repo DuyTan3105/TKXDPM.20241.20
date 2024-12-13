@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class DeliveryInfoController {
     private final DeliveryInfoService deliveryInfoService;
 
-    @PostMapping("/create")
+    @PostMapping("/add")
     public ResponseEntity<AIMSResponse<Object>> createDeliveryInfo(DeliveryInfo request) {
         StringUtils.trimAllStringFields(request);
         return deliveryInfoService.createDeliveryInfo(request);

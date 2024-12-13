@@ -1,24 +1,18 @@
 package org.example.backend.entities.delivery;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-import org.example.backend.entities.BaseEntity;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalTime;
 
-@Entity
-@Table(name = "deliveryInfos")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-public class DeliveryInfo extends BaseEntity {
+@Document(collection = "delivery_info")
+public class DeliveryInfo {
+    @Id
+    private String deliveryId;
     private String receiverName;
     private String phoneNumber;
     private String province;

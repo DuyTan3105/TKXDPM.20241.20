@@ -1,23 +1,14 @@
 package org.example.backend.entities.product;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "dvds")
-@Getter
-@Setter
+@Document(collection = "product")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-@DiscriminatorValue("DVD")
-@PrimaryKeyJoinColumn(name = "dvd_id")
 public class DVD extends Product {
     String discType;
     String director;

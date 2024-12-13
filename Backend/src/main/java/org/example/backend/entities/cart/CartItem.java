@@ -1,31 +1,15 @@
 package org.example.backend.entities.cart;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-import org.example.backend.entities.BaseEntity;
+import lombok.*;
 import org.example.backend.entities.product.Product;
-@Entity
-@Table(name = "cart_items")
-@Getter
-@Setter
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Data
 @AllArgsConstructor
-@NoArgsConstructor
-@SuperBuilder
-public class CartItem extends BaseEntity {
-    @ManyToOne
-    @JoinColumn(name = "cart_id")
-    private Cart cart;
-
-    @ManyToOne
-    @JoinColumn(name = "product_id")
+@Document(collection = "cart_item")
+public class CartItem {
+    // Vấn đề 1: Truy cập trực tiếp product làm tăng Stamp Coupling.
+    // Giải pháp: Có thể đổi cách lưu trữ (chỉ lưu bằng id)
     private Product product;
-
     private int quantity;
 }

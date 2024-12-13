@@ -1,21 +1,19 @@
 package org.example.backend.entities.product;
 
-import jakarta.persistence.*;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-import org.example.backend.entities.BaseEntity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "products")
-@Getter
-@Setter
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-@Inheritance(strategy = InheritanceType.JOINED)
-@DiscriminatorColumn(name = "category")
-public class Product extends BaseEntity {
+@Document(collection = "product")
+public class Product {
+    //    private static Logger LOGGER = Utils.getLogger(Product.class.getName());
+    @Id
+    protected String id;
     protected String title;
+    protected String category;
     protected int importPrice; // the real price of product (eg: 450)
     protected int sellPrice; // the price which will be displayed on browser (eg: 500)
     protected int quantity;

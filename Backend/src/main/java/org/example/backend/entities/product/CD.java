@@ -1,23 +1,14 @@
 package org.example.backend.entities.product;
 
-import jakarta.persistence.DiscriminatorValue;
-import jakarta.persistence.Entity;
-import jakarta.persistence.PrimaryKeyJoinColumn;
-import jakarta.persistence.Table;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.Date;
 
-@Entity
-@Table(name = "cds")
-@Getter
-@Setter
+@Document(collection = "product")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-@DiscriminatorValue("CD")
-@PrimaryKeyJoinColumn(name = "cd_id")
 public class CD extends Product {
     String artist;
     String recordLabel;

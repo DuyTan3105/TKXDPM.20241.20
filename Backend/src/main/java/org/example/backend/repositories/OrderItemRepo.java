@@ -1,7 +1,7 @@
 package org.example.backend.repositories;
 
 import org.example.backend.entities.order.OrderItem;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface OrderItemRepo extends JpaRepository<OrderItem, String> {
+public interface OrderItemRepo extends MongoRepository<OrderItem, String> {
 }
