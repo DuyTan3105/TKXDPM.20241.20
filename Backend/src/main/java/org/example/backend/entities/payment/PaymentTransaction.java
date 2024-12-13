@@ -1,19 +1,16 @@
 package org.example.backend.entities.payment;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
 import lombok.*;
-import lombok.experimental.SuperBuilder;
-import org.example.backend.entities.BaseEntity;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "payment_transactions")
-@Getter
-@Setter
+@Document(collection = "payment_transaction")
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-public class PaymentTransaction extends BaseEntity {
+public class PaymentTransaction {
+    @Id
+    private String transactionId;
     private String orderId;
     private String errorCode; // code response from bank
     private long amount;

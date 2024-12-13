@@ -1,36 +1,59 @@
 package org.example.backend.controllers;
 
 import lombok.RequiredArgsConstructor;
+import org.example.backend.constants.Constants;
 import org.example.backend.constants.enums.OrderStatus;
 import org.example.backend.dtos.responses.AIMSResponse;
+import org.example.backend.dtos.responses.ResponseUtil;
 import org.example.backend.entities.delivery.DeliveryInfo;
+import org.example.backend.entities.order.Order;
 import org.example.backend.services.OrderService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
 @RestController
 @RequestMapping("${api.prefix}/order")
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
 
-    @PostMapping("/place")
+    //Vấn đề: gửi cả DeliveryInfo lên là không cần thiết (Stamp Coupling)
+    //Giải pháp: Chỉ cần gửi deliveryInfoId
+    @PostMapping("/place-order")
     public ResponseEntity<AIMSResponse<Object>> placeOrder(@RequestParam String cartId, @RequestBody DeliveryInfo deliveryInfo) {
-        return orderService.createOrder(cartId, deliveryInfo);
+        Order order = orderService.createOrder(cartId, deliveryInfo);
+        return ResponseUtil.success200Response("Place order successfully", order);
     }
 
     @GetMapping("/all")
     public ResponseEntity<AIMSResponse<Object>> getAllOrders() {
-        return orderService.getAllOrders();
+        List<Order> orders = orderService.getAllOrders();
+        return ResponseUtil.success200Response("Get all orders successfully", orders);
     }
 
-    @PutMapping("/update-status")
-    public ResponseEntity<AIMSResponse<Object>> updateOrder(@RequestParam String orderId, @RequestParam OrderStatus status) {
-        return orderService.updateStatusOrder(orderId, status);
+    @PutMapping("/update-status/approve/{orderId}")
+    public ResponseEntity<AIMSResponse<Object>> approveOrder(@PathVariable String orderId) {
+        Order order =  orderService.updateStatusOrder(orderId, Constants.ORDER_STATUS_PROCESSING);
+        return ResponseUtil.success200Response("Approve order successfully", order);
     }
 
+    @PutMapping("/update-status/cancel/{orderId}")
+    public ResponseEntity<AIMSResponse<Object>>  cancelOrder(@PathVariable String orderId) {
+        Order order = orderService.updateStatusOrder(orderId, Constants.ORDER_STATUS_CANCELLED);
+        return ResponseUtil.success200Response("Cancel order successfully", order);
+    }
+
+    @PutMapping("/update-status/reject/{orderId}")
+    public ResponseEntity<AIMSResponse<Object>>  rejectOrder(@PathVariable String orderId) {
+        Order order = orderService.updateStatusOrder(orderId, Constants.ORDER_STATUS_REJECTED);
+        return ResponseUtil.success200Response("Reject order successfully", order);
+    }
 
     @GetMapping("/{orderId}")
     public ResponseEntity<AIMSResponse<Object>>  getOrder(@PathVariable String orderId) {
-        return orderService.getOrder(orderId);
+        Order order = orderService.getOrder(orderId);
+        return ResponseUtil.success200Response("Get order successfully", order);
     }
 }

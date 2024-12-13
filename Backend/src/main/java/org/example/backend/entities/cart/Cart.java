@@ -1,27 +1,24 @@
 package org.example.backend.entities.cart;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.experimental.SuperBuilder;
-import org.example.backend.entities.BaseEntity;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.List;
-@Entity
-@Table(name = "carts")
-@Getter
-@Setter
+
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@SuperBuilder
-public class Cart extends BaseEntity {
-    @OneToMany(mappedBy = "cart")
+@Document(collection = "cart")
+public class Cart {
+    @Id
+    private String id;
+
+    // Vấn đề 1: Truy cập trực tiếp listCartItem làm tăng Stamp Coupling.
+    // Giải pháp: Có thể đổi cách lưu trữ (chỉ lưu bằng id) hoặc cung cấp các phương thức thêm, xóa, hoặc truy xuất an toàn.
     private List<CartItem> listCartItem;
 
+    // Vấn đề 2: totalPrice hiện không tự động cập nhật khi listCartItem thay đổi, giảm Cohesion.
+    // Giải pháp: Thêm phương thức tính toán totalPrice bên trong class để duy trì tính gắn kết.
     private int totalPrice;
-
 }

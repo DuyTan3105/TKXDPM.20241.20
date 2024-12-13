@@ -1,16 +1,14 @@
 package org.example.backend.controllers;
 
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.example.backend.dtos.requests.TokenRequest;
-import org.example.backend.dtos.requests.product.ProductDetalsRequest;
-import org.example.backend.dtos.requests.product.ProductsByCategoryRequest;
 import org.example.backend.dtos.responses.AIMSResponse;
 import org.example.backend.dtos.responses.ResponseUtil;
+import org.example.backend.entities.product.Product;
 import org.example.backend.services.ProductService;
-import org.example.backend.utils.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,24 +19,10 @@ import java.util.List;
 public class ProductController {
     private final ProductService productService;
 
-    @GetMapping("/get_all")
-    public ResponseEntity<AIMSResponse<Object>> getAllProduct(@Valid @RequestBody TokenRequest request) {
-        StringUtils.trimAllStringFields(request);
-
-        return productService.getAllProduct(request);
+    @GetMapping("/all")
+    public ResponseEntity<AIMSResponse<Object>> getAllProducts() {
+        List<Product> products = productService.findAllProduct();
+        return ResponseUtil.success200Response("Get all products successfully", products);
     }
 
-    @GetMapping("/get_by_category")
-    public ResponseEntity<AIMSResponse<Object>> getProductsByCategory(@Valid @RequestBody ProductsByCategoryRequest request) {
-        StringUtils.trimAllStringFields(request);
-
-        return productService.getProductsByCategory(request);
-    }
-
-    @GetMapping("/get_product_details")
-    public ResponseEntity<AIMSResponse<Object>> getProductDetails(@Valid @RequestBody ProductDetalsRequest request) {
-        StringUtils.trimAllStringFields(request);
-
-        return productService.getProductDetails(request);
-    }
 }
