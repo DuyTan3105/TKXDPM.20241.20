@@ -3,6 +3,52 @@ import ItemCard from "../components/ItemCard";
 import axios from "axios";
 import ProductDetailModal from "../components/ProductDetailModal";
 import { setItemsInLocalStorage } from "../utils";
+import styled from "styled-components";
+
+// Styled components
+const Wrapper = styled.div`
+  border-bottom: 4px solid #e5e7eb; /* Tailwind gray-300 */
+`;
+
+const Header = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 1.25rem 2.5rem;
+`;
+
+const Title = styled.h1`
+  font-size: 1.5rem;
+  font-weight: bold;
+`;
+
+const SearchWrapper = styled.div`
+  display: flex;
+  gap: 0.5rem;
+`;
+
+const SearchInput = styled.input`
+  border-radius: 1.5rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb; /* Tailwind gray-300 */
+`;
+
+const SortButton = styled.button`
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  ${(props) =>
+    props.active
+      ? `background-color: #6b7280; color: white;` /* Tailwind gray-500 */
+      : `border: 1px solid #e5e7eb;`};
+`;
+
+const ProductGrid = styled.div`
+  margin-top: 5rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+  padding: 0 2.5rem;
+`;
 
 const Home = () => {
   const [productData, setProductData] = useState([]);
@@ -14,22 +60,23 @@ const Home = () => {
   useEffect(() => {
     axios.get("/product/all")
       .then((response) => {
-        if(response.status) {
+        if (response.status) {
           setProductData(response.data.data);
         }
       }).catch((error) => {
         console.error("Error fetching data: ", error);
       });
+
     if (!localStorage.getItem("cartId")) {
       axios.get("/cart/new")
-      .then((response) => {
-        if(response.status) {
-          console.log("cart id: ", response.data.data.id);
-          setItemsInLocalStorage("cartId", response.data.data.id);
-        }
-      }).catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
+        .then((response) => {
+          if (response.status) {
+            console.log("cart id: ", response.data.data.id);
+            setItemsInLocalStorage("cartId", response.data.data.id);
+          }
+        }).catch((error) => {
+          console.error("Error fetching data: ", error);
+        });
     }
     console.log("cart id: ", localStorage.getItem("cartId"));
   }, []);
@@ -66,51 +113,41 @@ const Home = () => {
   };
 
   return (
-    <div>
-      <div css="border-b-4">
-        <div css="flex justify-between px-10 py-5">
-          <h1 css="text-2xl font-bold">Products</h1>
+    <Wrapper>
+      <Header>
+        <Title>Products</Title>
 
-          <div css="space-x-2 flex">
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={handleSearch}
-              placeholder="Search by title"
-              css="border rounded-3xl py-2 px-4"
-            />
-            <button
-              css={`font-bold py-2 px-4 rounded-3xl ${sortType === "default" ? "bg-gray-500 text-white" : "border"}`}
-              onClick={() => handleSort("default")}
-            >
-              Default
-            </button>
-            <button
-              css={`font-bold py-2 px-4 rounded-3xl ${sortType === "priceAsc" ? "bg-gray-500 text-white" : "border"}`}
-              onClick={() => handleSort("priceAsc")}
-            >
-              Price Asc
-            </button>
-            <button
-              css={`font-bold py-2 px-4 rounded-3xl ${sortType === "priceDesc" ? "bg-gray-500 text-white" : "border"}`}
-              onClick={() => handleSort("priceDesc")}
-            >
-              Price Desc
-            </button>
-          </div>
-        </div>
-      </div>
-      <div css="mt-20 grid grid-cols-4 gap-8 px-10">
+        <SearchWrapper>
+          <SearchInput
+            type="text"
+            value={searchQuery}
+            onChange={handleSearch}
+            placeholder="Search by title"
+          />
+          <SortButton active={sortType === "default"} onClick={() => handleSort("default")}>
+            Default
+          </SortButton>
+          <SortButton active={sortType === "priceAsc"} onClick={() => handleSort("priceAsc")}>
+            Price Asc
+          </SortButton>
+          <SortButton active={sortType === "priceDesc"} onClick={() => handleSort("priceDesc")}>
+            Price Desc
+          </SortButton>
+        </SearchWrapper>
+      </Header>
+
+      <ProductGrid>
         {filteredProducts.map((product) => (
           <ItemCard key={product.id} product={product} onViewDetail={handleClickItemCard} />
         ))}
-      </div>
+      </ProductGrid>
+
       <ProductDetailModal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
         product={selectedProduct}
       />
-    </div>
+    </Wrapper>
   );
 };
 

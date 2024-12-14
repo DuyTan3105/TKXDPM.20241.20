@@ -3,8 +3,49 @@ import Modal from "react-modal";
 import axios from "axios";
 import { toast } from "react-toastify";
 import OrderDetailPopup from "../components/OrderDetailPopup";
+import styled from "styled-components";
 
 Modal.setAppElement("#root");
+
+// Styled components
+const Container = styled.div`
+  padding: 1.5rem;
+`;
+
+const Title = styled.h1`
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+`;
+
+const Table = styled.table`
+  width: 100%;
+  table-layout: auto;
+`;
+
+const TableHeader = styled.th`
+  padding: 0.5rem 1rem;
+`;
+
+const TableRow = styled.tr`
+  height: 4rem;
+`;
+
+const TableCell = styled.td`
+  padding: 0.5rem 1rem;
+  border: 1px solid #e5e7eb; /* Gray-300 */
+`;
+
+const ActionButton = styled.button`
+  border: 2px solid #e5e7eb;
+  border-radius: 1.5rem;
+  padding: 0.5rem 1rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
+  
+  &:hover {
+    background-color: #f3f4f6; /* Tailwind gray-100 */
+  }
+`;
 
 const OrderManager = () => {
   const [orders, setOrders] = useState([]);
@@ -68,54 +109,45 @@ const OrderManager = () => {
   };
 
   return (
-    <div css="p-6">
-      <h1 css="text-2xl mb-4">Order</h1>
+    <Container>
+      <Title>Order</Title>
 
-      <table css="w-full table-auto">
+      <Table>
         <thead>
           <tr>
-            <th css="px-4 py-2">Id</th>
-            <th css="px-4 py-2">Cart ID</th>
-            <th css="px-4 py-2">Total Amount</th>
-            <th css="px-4 py-2">Status</th>
-            <th css="px-4 py-2">Action</th>
+            <TableHeader>Id</TableHeader>
+            <TableHeader>Cart ID</TableHeader>
+            <TableHeader>Total Amount</TableHeader>
+            <TableHeader>Status</TableHeader>
+            <TableHeader>Action</TableHeader>
           </tr>
         </thead>
         <tbody>
           {orders.map((order) => (
-            <tr css="h-16" key={order.id}>
-              <td css="border px-4 py-2">{order.orderId}</td>
-              <td css="border px-4 py-2">{order.cartId}</td>
-              <td css="border px-4 py-2">{order.totalAmount}</td>
-              <td css="border px-4 py-2">{order.status.toUpperCase()}</td>
-              <td css="border px-4 py-2">
+            <TableRow key={order.id}>
+              <TableCell>{order.orderId}</TableCell>
+              <TableCell>{order.cartId}</TableCell>
+              <TableCell>{order.totalAmount}</TableCell>
+              <TableCell>{order.status.toUpperCase()}</TableCell>
+              <TableCell>
                 {order.status === "pending" && (
                   <>
-                    <button
-                      css="border-2 rounded-2xl px-4 py-2 mr-2"
-                      onClick={() => handleApproveOrder(order.orderId)}
-                    >
+                    <ActionButton onClick={() => handleApproveOrder(order.orderId)}>
                       Approve
-                    </button>
-                    <button
-                      css="border-2 rounded-2xl px-4 py-2 mr-2"
-                      onClick={() => handleRejectOrder(order.orderId)}
-                    >
+                    </ActionButton>
+                    <ActionButton onClick={() => handleRejectOrder(order.orderId)}>
                       Reject
-                    </button>
-                    <button
-                      css="border-2 rounded-2xl px-4 py-2 mr-2"
-                      onClick={() => handleViewOrder(order.orderId)}
-                    >
+                    </ActionButton>
+                    <ActionButton onClick={() => handleViewOrder(order.orderId)}>
                       View
-                    </button>
+                    </ActionButton>
                   </>
                 )}
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
         </tbody>
-      </table>
+      </Table>
 
       {selectedOrder && (
         <OrderDetailPopup
@@ -124,7 +156,7 @@ const OrderManager = () => {
           order={selectedOrder}
         />
       )}
-    </div>
+    </Container>
   );
 };
 
