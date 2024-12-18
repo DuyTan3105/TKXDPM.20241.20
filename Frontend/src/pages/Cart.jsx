@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useContext } from "react";
 import CartCard from "../components/CartCard";
 import Summary from "../components/Summary";
-import { CartContext } from "../providers/CartContext";
+import { CartContext } from "../contexts/CartContext";
 import styled from "styled-components";
 
 const Wrapper = styled.div`

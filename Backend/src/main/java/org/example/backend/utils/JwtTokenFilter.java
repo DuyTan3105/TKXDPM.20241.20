@@ -81,17 +81,19 @@ public class JwtTokenFilter extends OncePerRequestFilter {
     private boolean isBypassToken(@NonNull HttpServletRequest request) {
         final List<Pair<String, String>> bypassTokens = Arrays.asList(
                 // Healthcheck request, no JWT token required
-                Pair.of(String.format("%s/healthcheck/health", apiPrefix), "GET"),
-                Pair.of(String.format("%s/actuator/**", apiPrefix), "GET"),
-
-                Pair.of(String.format("%s/user/register", apiPrefix), "POST"),
-                Pair.of(String.format("%s/user/login", apiPrefix), "POST"),
-                Pair.of(String.format("%s/user/refresh-token", apiPrefix), "POST"),
-                Pair.of(String.format("%s/user/confirm-email", apiPrefix), "GET"),
-
-                // OpenAPI requests, no JWT token required
-                Pair.of("/v3/api-docs/**", "GET"),
-                Pair.of("/swagger-ui/**", "GET")
+//                Pair.of(String.format("%s/healthcheck/health", apiPrefix), "GET"),
+//                Pair.of(String.format("%s/actuator/**", apiPrefix), "GET"),
+//
+//                Pair.of(String.format("%s/user/register", apiPrefix), "POST"),
+//                Pair.of(String.format("%s/user/login", apiPrefix), "POST"),
+//                Pair.of(String.format("%s/user/refresh-token", apiPrefix), "POST"),
+//                Pair.of(String.format("%s/user/confirm-email", apiPrefix), "GET"),
+//
+//                // OpenAPI requests, no JWT token required
+//                Pair.of("/v3/api-docs/**", "GET"),
+//                Pair.of("/swagger-ui/**", "GET")
+                Pair.of(String.format("%s/**", apiPrefix), "GET"),
+                Pair.of(String.format("%s/**", apiPrefix), "POST")
         );
 
         String requestPath = request.getServletPath();

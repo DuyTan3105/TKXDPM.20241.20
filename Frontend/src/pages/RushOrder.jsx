@@ -5,7 +5,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { processString } from "../utils";
-import { CartContext } from "../providers/CartContext";
+import { CartContext } from "../contexts/CartContext";
 import { useNavigate } from "react-router-dom";
 import { setItemsInLocalStorage } from "../utils";
 import styled from "styled-components";

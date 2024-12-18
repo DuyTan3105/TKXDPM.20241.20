@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
 import Modal from "react-modal";
 import axios from "axios";
-import { CartContext } from "../providers/CartContext";
+import { CartContext } from "../contexts/CartContext";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 

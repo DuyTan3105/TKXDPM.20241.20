@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ItemCard from "../components/ItemCard";
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 import ProductDetailModal from "../components/ProductDetailModal";
 import { setItemsInLocalStorage } from "../utils";
 import styled from "styled-components";
@@ -58,7 +58,7 @@ const Home = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
-    axios.get("/product/all")
+    axiosInstance.get("/product/all")
       .then((response) => {
         if (response.status) {
           setProductData(response.data.data);
@@ -68,7 +68,7 @@ const Home = () => {
       });
 
     if (!localStorage.getItem("cartId")) {
-      axios.get("/cart/new")
+      axiosInstance.get("/cart/new")
         .then((response) => {
           if (response.status) {
             console.log("cart id: ", response.data.data.id);

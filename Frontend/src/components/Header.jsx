@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../providers/UserContext";
-import { CartContext } from "../providers/CartContext";
+import { UserContext } from "../contexts/AuthContext";
+import { CartContext } from "../contexts/CartContext"; 
 import { toast } from "react-toastify";
 import { removeItemFromLocalStorage } from "../utils";
 

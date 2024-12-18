@@ -1,8 +1,7 @@
 import axios from "axios";
 
-const prefix = import.meta.env.prefix;
 const axiosInstance = axios.create({
-  baseURL: `http://localhost:8080/${prefix}`,
+  baseURL: import.meta.env.VITE_SERVER_URL,
 });
 
 // Thêm Interceptor cho request
@@ -28,7 +27,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("user");
-      window.location.href = "/login"; // Redirect đến trang đăng nhập
+      // window.location.href = "/login"; // Redirect đến trang đăng nhập
     }
     return Promise.reject(error);
   }

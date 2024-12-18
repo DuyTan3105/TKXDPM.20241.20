@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useContext } from "react";
-import { CartContext } from "../providers/CartContext";
+import { CartContext } from "../contexts/CartContext";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 
