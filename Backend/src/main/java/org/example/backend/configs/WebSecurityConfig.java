@@ -42,8 +42,8 @@ public class WebSecurityConfig {
                                     String.format("%s/user/login", apiPrefix),
                                     String.format("%s/user/login", apiPrefix),
 
-                                    // healthcheck
-                                    String.format("%s/healthcheck/**", apiPrefix)
+                                    String.format("%s/healthcheck/**", apiPrefix),
+                                    String.format("%s/product/**", apiPrefix)
 
                             ).permitAll()
 

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Modal from "react-modal";
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 import { toast } from "react-toastify";
 import OrderDetailPopup from "../components/OrderDetailPopup";
 import styled from "styled-components";
@@ -53,7 +53,7 @@ const OrderManager = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchBooks = () => {
-    axios
+    axiosInstance
       .get("/order/all")
       .then((response) => {
         setOrders(response.data.data);
@@ -68,7 +68,7 @@ const OrderManager = () => {
   }, []);
 
   const handleApproveOrder = (id) => {
-    axios
+    axiosInstance
       .put(`order/update-status/approve/${id}`)
       .then((response) => {
         fetchBooks();
@@ -80,7 +80,7 @@ const OrderManager = () => {
   };
 
   const handleRejectOrder = (id) => {
-    axios
+    axiosInstance
       .put(`order/update-status/reject/${id}`)
       .then((response) => {
         fetchBooks();
@@ -92,7 +92,7 @@ const OrderManager = () => {
   };
 
   const handleViewOrder = (id) => {
-    axios
+    axiosInstance
       .get(`order/${id}`)
       .then((response) => {
         setSelectedOrder(response.data.data);

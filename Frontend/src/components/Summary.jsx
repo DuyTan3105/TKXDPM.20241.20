@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { CartContext } from "../providers/CartContext";
+import { CartContext } from "../contexts/CartContext";
 import { convertToVND } from "../utils";
 import styled from "styled-components";
 

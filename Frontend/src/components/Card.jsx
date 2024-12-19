@@ -1,6 +1,6 @@
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 import { useContext } from "react";
-import { CartContext } from "../providers/CartContext";
+import { CartContext } from "../contexts/CartContext";
 import { toast } from "react-toastify";
 import styled from "styled-components";
 
@@ -16,7 +16,7 @@ const CartCard = (props) => {
     if (product.quantity + qty < 1) {
       handleRemoveFromCart();
     } else {
-      axios
+      axiosInstance
         .post(
           `/cart/${cartId}/add?productId=${product.product.id}&quantity=${qty}`
         )
@@ -32,7 +32,7 @@ const CartCard = (props) => {
   };
 
   const handleRemoveFromCart = () => {
-    axios
+    axiosInstance
       .delete(`/cart/${cartId}/remove?productId=${product.product.id}`)
       .then((response) => {
         setItem(response.data.data.listCartItem);
