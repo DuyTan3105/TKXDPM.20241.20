@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { UserContext } from "../contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { CartContext } from "../contexts/CartContext"; 
 import { toast } from "react-toastify";
 import { removeItemFromLocalStorage } from "../utils";
@@ -62,7 +62,7 @@ const CartCount = styled.div`
 
 const Header = () => {
   const { item } = useContext(CartContext);
-  const { isAuthen, setIsAuthen } = useContext(UserContext);
+  const { isAuthen, setIsAuthen } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const handleLogout = () => {

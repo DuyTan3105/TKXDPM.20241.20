@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Modal from "react-modal";
 import styled from "styled-components";
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 import { toast } from "react-toastify";
 
 Modal.setAppElement("#root");
@@ -68,7 +68,7 @@ const EditPriceModal = ({ isOpen, onRequestClose, productId, fetchProducts, curr
   const handleEditPrice = async (event) => {
     event.preventDefault();
     try {
-      await axios.put(`/product/update-price/${productId}?newPrice=${newPrice}`);
+      await axiosInstance.put(`/product/update-price/${productId}?newPrice=${newPrice}`);
       toast.success("Price updated successfully!");
       onRequestClose();
       fetchProducts();

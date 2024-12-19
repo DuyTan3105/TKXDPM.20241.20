@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Summary from "../components/Summary";
 import { CartContext } from "../contexts/CartContext";
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { RegionDropdown } from "react-country-region-selector";
@@ -43,7 +43,7 @@ const Shipping = () => {
   }, [setShippingPrice]);
 
   function handleRushOrder(e) {
-    e.preventDefault();
+    // e.preventDefault();
     for (const key in formData) {
       if (key === "instructions") continue; 
       if (formData[key] === "") {
@@ -72,7 +72,7 @@ const Shipping = () => {
         return;
       }
     }
-    axios
+    axiosInstance
       .get(
         `delivery-info/shipping-fee?province=${processString(
           formData.province
@@ -108,7 +108,7 @@ const Shipping = () => {
         return;
       }
     }
-    axios
+    axiosInstance
       .post(`order/place-order?cartId=${cartId}`, {
         receiverName: formData.name,
         phoneNumber: formData.phone,

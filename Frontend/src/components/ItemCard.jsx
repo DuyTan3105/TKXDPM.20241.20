@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import styled from "styled-components";
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 import { CartContext } from "../contexts/CartContext";
 import { toast } from "react-toastify";
 
@@ -114,7 +114,7 @@ const ItemCard = (props) => {
       return;
     }
 
-    axios
+    axiosInstance
       .post(`/cart/${cartId}/add?productId=${product.id}&quantity=${qty}`)
       .then((response) => {
         setItem(response.data.data.listCartItem);

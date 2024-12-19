@@ -1,6 +1,5 @@
 package org.example.backend.controllers;
 
-import org.example.backend.constants.Constants;
 import org.example.backend.dtos.responses.AIMSResponse;
 import org.example.backend.dtos.responses.ResponseUtil;
 import org.example.backend.entities.cart.Cart;
@@ -9,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/v1/cart")
 public class CartController {
 

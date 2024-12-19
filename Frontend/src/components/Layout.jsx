@@ -12,7 +12,7 @@ const LayoutContainer = styled.div`
 const Content = styled.div`
   padding: 1rem 0; /* Tailwind py-4 */
   flex: 1; /* Ensures content takes remaining space */
-  margin: 0 auto; /* Tailwind mx-auto */
+  margin: 0 2rem; /* Tailwind mx-auto */
 `;
 
 export default function Layout() {

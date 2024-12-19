@@ -2,7 +2,7 @@ import Summary from "../components/Summary";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useState, useContext } from "react";
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 import { toast } from "react-toastify";
 import { processString } from "../utils";
 import { CartContext } from "../contexts/CartContext";
@@ -101,7 +101,7 @@ const RushOrder = () => {
       toast.error("From Time is required");
       return;
     }
-    axios
+    axiosInstance
       .get(
         `delivery-info/shipping-fee?province=${processString(
           state.formData.province
@@ -137,7 +137,7 @@ const RushOrder = () => {
 
   const handleRushOrder = () => {
     // Implement the rush order handling logic
-    axios
+    axiosInstance
       .post(`order/place-order?cartId=${cartId}`, {
         receiverName: rushOrderData.name,
         phoneNumber: rushOrderData.phone,

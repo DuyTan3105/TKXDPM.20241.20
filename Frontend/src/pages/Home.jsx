@@ -8,12 +8,14 @@ import styled from "styled-components";
 // Styled components
 const Wrapper = styled.div`
   border-bottom: 4px solid #e5e7eb; /* Tailwind gray-300 */
+  // width: 100%;
+  // min-height: 100vh;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 1.25rem 2.5rem;
+  // padding: 1.25rem 2.5rem;
 `;
 
 const Title = styled.h1`
@@ -45,7 +47,7 @@ const SortButton = styled.button`
 const ProductGrid = styled.div`
   margin-top: 5rem;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 2rem;
   padding: 0 2.5rem;
 `;

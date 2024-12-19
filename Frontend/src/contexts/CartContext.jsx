@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import axios from "axios";
+import axiosInstance from "../services/axiosInstance";
 export const CartContext = createContext([]);
 
 export const CartProvider = ({ children }) => { 
@@ -9,7 +9,7 @@ export const CartProvider = ({ children }) => {
     const [totalPrice, setTotalPrice] = useState(0);
     const [shippingPrice, setShippingPrice] = useState(0);
     useEffect(() => {
-      axios.get("/cart/" + cartId)
+      axiosInstance.get("/cart/" + cartId)
         .then((response) => { 
           setItem(response.data.data.listCartItem);
           setTotalPrice(response.data.data.totalPrice);
