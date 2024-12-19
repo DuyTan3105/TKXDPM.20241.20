@@ -4,18 +4,18 @@ import axiosInstance from "../services/axiosInstance";
 import ProductDetailModal from "../components/ProductDetailModal";
 import { setItemsInLocalStorage } from "../utils";
 import styled from "styled-components";
+import { getAllProducts } from "../services/productApi";
+import { createNewCart } from "../services/cartApi";
 
 // Styled components
 const Wrapper = styled.div`
-  border-bottom: 4px solid #e5e7eb; /* Tailwind gray-300 */
-  // width: 100%;
-  // min-height: 100vh;
+  border-bottom: 1px solid #e5e7eb; /* Tailwind gray-300 */
+  padding: 1rem 2rem;
 `;
 
 const Header = styled.div`
   display: flex;
   justify-content: space-between;
-  // padding: 1.25rem 2.5rem;
 `;
 
 const Title = styled.h1`
@@ -47,9 +47,37 @@ const SortButton = styled.button`
 const ProductGrid = styled.div`
   margin-top: 5rem;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 2rem;
-  padding: 0 2.5rem;
+  padding: 0 2rem;
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 2rem;
+  align-items: center;
+  gap: 1rem;
+`;
+
+const PaginationButton = styled.button`
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+  margin: 0 0.25rem;
+  border-radius: 1.5rem;
+  background-color: ${(props) => (props.active ? "#6b7280" : "transparent")};
+  color: ${(props) => (props.active ? "white" : "#6b7280")};
+  border: 1px solid #e5e7eb;
+
+  &:hover {
+    background-color: ${(props) => (props.active ? "#6b7280" : "#f3f4f6")};
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: #e5e7eb;
+    cursor: not-allowed;
+  }
 `;
 
 const Home = () => {
@@ -58,30 +86,47 @@ const Home = () => {
   const [sortType, setSortType] = useState("default");
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
+
+  const itemsPerPage = 10; // Số sản phẩm mỗi trang
 
   useEffect(() => {
-    axiosInstance.get("/product/all")
-      .then((response) => {
-        if (response.status) {
+    const fetchProducts = async () => {
+      try {
+        const response = await getAllProducts(currentPage - 1, itemsPerPage);
+        if (response.code === 200 && response.data) {
           setProductData(response.data.data);
+          setTotalPages(Math.ceil(response.data.total_items / itemsPerPage)); // Tính tổng số trang
+        } else {
+          console.error("Failed to fetch products:", response.message);
         }
-      }).catch((error) => {
-        console.error("Error fetching data: ", error);
-      });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
+    fetchProducts();
+
+    // Check if cartId exists in localStorage, else create a new one
     if (!localStorage.getItem("cartId")) {
-      axiosInstance.get("/cart/new")
-        .then((response) => {
-          if (response.status) {
-            console.log("cart id: ", response.data.data.id);
-            setItemsInLocalStorage("cartId", response.data.data.id);
+
+      const fetchNewCart = async () => {
+        try {
+          const response = await createNewCart();
+          if (response.code === 200 && response.data) {
+            setItemsInLocalStorage("cartId", response.data.id);
+          } else {
+            console.error("Failed to fetch cart ID:", response.message);
           }
-        }).catch((error) => {
-          console.error("Error fetching data: ", error);
-        });
+        } catch (error) {
+          console.error("Error fetching cart ID:", error);
+        }
+      }
+      fetchNewCart();
+
     }
-    console.log("cart id: ", localStorage.getItem("cartId"));
-  }, []);
+  }, [currentPage]); // Gọi lại API khi trang thay đổi
 
   const handleSort = (type) => {
     let sortedData = [...productData];
@@ -89,8 +134,6 @@ const Home = () => {
       sortedData.sort((a, b) => a.sellPrice - b.sellPrice);
     } else if (type === "priceDesc") {
       sortedData.sort((a, b) => b.sellPrice - a.sellPrice);
-    } else if (type === "default") {
-      // Implement your default sorting logic if needed
     }
     setProductData(sortedData);
     setSortType(type);
@@ -112,6 +155,12 @@ const Home = () => {
   const closeModal = () => {
     setModalIsOpen(false);
     setSelectedProduct(null);
+  };
+
+  const changePage = (page) => {
+    if (page >= 1 && page <= totalPages) {
+      setCurrentPage(page);
+    }
   };
 
   return (
@@ -143,6 +192,22 @@ const Home = () => {
           <ItemCard key={product.id} product={product} onViewDetail={handleClickItemCard} />
         ))}
       </ProductGrid>
+
+      <PaginationWrapper>
+        <PaginationButton onClick={() => changePage(1)} disabled={currentPage === 1}>
+          First
+        </PaginationButton>
+        <PaginationButton onClick={() => changePage(currentPage - 1)} disabled={currentPage === 1}>
+          Prev
+        </PaginationButton>
+        <span>{`Page ${currentPage} of ${totalPages}`}</span>
+        <PaginationButton onClick={() => changePage(currentPage + 1)} disabled={currentPage === totalPages}>
+          Next
+        </PaginationButton>
+        <PaginationButton onClick={() => changePage(totalPages)} disabled={currentPage === totalPages}>
+          Last
+        </PaginationButton>
+      </PaginationWrapper>
 
       <ProductDetailModal
         isOpen={modalIsOpen}

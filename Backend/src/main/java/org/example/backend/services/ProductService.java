@@ -1,10 +1,9 @@
 package org.example.backend.services;
 
+import org.example.backend.dtos.responses.Pagination;
 import org.example.backend.entities.product.Product;
 
-import java.util.List;
-
 public interface ProductService {
-    List<Product> findAllProduct();
+    Pagination<Object> findAllProduct(int page, int limit);
     Product findProductById(String id);
 }

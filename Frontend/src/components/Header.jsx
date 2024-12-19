@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { AuthContext } from "../contexts/AuthContext";
-import { CartContext } from "../contexts/CartContext"; 
+import { CartContext } from "../contexts/CartContext";
 import { toast } from "react-toastify";
 import { removeItemFromLocalStorage } from "../utils";
 
@@ -24,6 +24,7 @@ const HeaderContainer = styled.div`
     background-color: #e5e7eb; /* Tailwind bg-gray-200 */
     border-radius: 1rem; /* Tailwind rounded-2xl */
     padding: 0.5rem 1rem; /* Tailwind px-4 py-2 */
+    column-gap: 0.5rem; /* Tailwind gap-x-2 */
   }
 
   .actions {
@@ -116,8 +117,10 @@ const Header = () => {
                   🛒
                 </span>
               </button>
-              <div>Your cart</div>
-              <CartCount>({item?.length ? item.length : 0})</CartCount>
+              <>
+                <div>Your cart</div>
+                <CartCount>({item?.length ? item.length : 0})</CartCount>
+              </>
             </div>
           </Link>
         </div>

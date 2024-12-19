@@ -5,89 +5,128 @@ import { CartContext } from "../contexts/CartContext";
 import { toast } from "react-toastify";
 
 const CardContainer = styled.div`
-  background-color: #f3f4f6; /* Tailwind bg-gray-100 */
-  border-radius: 0.5rem; /* Tailwind rounded-lg */
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Tailwind shadow-md */
-  padding: 1rem; /* Tailwind p-4 */
+  background-color: #ffffff; /* Nền trắng cho cảm giác chuyên nghiệp */
+  border-radius: 0.75rem; /* Bo góc mềm mại hơn */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1); /* Đổ bóng mềm mại */
+  padding: 1.5rem 1rem; /* Khoảng cách bên trong lớn hơn */
+  display: flex;
+  flex-direction: column; /* Xếp chồng theo chiều dọc */
+  gap: 1rem; /* Khoảng cách giữa các thành phần */
+  margin: 1rem;
+  box-sizing: border-box;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: scale(1.02); /* Hiệu ứng phóng to nhẹ khi hover */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+  }
 `;
 
 const ProductImage = styled.img`
-  width: 100%;
-  border-radius: 0.5rem; /* Tailwind rounded-lg */
-  height: 15rem; /* Tailwind h-60 */
-  object-fit: cover;
+  border-radius: 0.75rem;
+  max-height: 15rem; /* Chiều cao tối đa của ảnh */
+  object-fit: contain;
+  width: 100%; /* Chiều rộng ảnh bằng với container */
 `;
 
 const ProductDetails = styled.div`
   display: flex;
-  justify-content: space-between;
-  margin-top: 1.5rem; /* Tailwind mt-6 */
-  align-items: center;
+  flex-direction: column;
+  gap: 1rem; /* Khoảng cách giữa các phần thông tin */
 `;
 
 const ProductInfo = styled.div`
+  align-items: center;
   h2 {
-    font-size: 1.25rem; /* Tailwind text-xl */
-    font-weight: 600; /* Tailwind font-semibold */
-    margin-bottom: 0.5rem; /* Tailwind mb-2 */
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    font-size: 1.5rem; /* Cỡ chữ lớn hơn */
+    font-weight: 700; /* Chữ đậm hơn */
+    color: #1f2937; /* Màu đen nhạt */
+    margin-bottom: 0.5rem;
   }
 
   p {
-    margin-bottom: 0.5rem; /* Tailwind mb-2 */
-    color: #4b5563; /* Tailwind text-gray-600 */
-    font-size: 0.875rem; /* Tailwind text-sm */
+    margin-bottom: 0.25rem;
+    color: #6b7280; /* Màu xám đậm hơn */
+    font-size: 1rem; /* Cỡ chữ hợp lý hơn */
   }
 
   .stock {
-    font-size: 0.75rem; /* Tailwind text-xs */
+    font-size: 0.875rem;
     font-style: italic;
+    color: ${(props) =>
+      props.inStock
+        ? "#10b981"
+        : "#ef4444"}; /* Màu xanh nếu còn hàng, đỏ nếu hết hàng */
   }
 `;
 
 const QuantityControls = styled.div`
   display: flex;
   align-items: center;
-  margin-bottom: 1rem; /* Tailwind mb-4 */
+  justify-content: center;
+  gap: 0.5rem; /* Khoảng cách giữa các nút */
 
   button {
-    background-color: #fff; /* Tailwind bg-white */
-    border: 1px solid;
-    padding: 0.25rem 0.5rem; /* Tailwind px-2 py-1 */
-    border-radius: 0.25rem; /* Tailwind rounded */
+    background-color: #e5e7eb; /* Nền xám nhạt */
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: #d1d5db; /* Tô sáng khi hover */
+    }
   }
 
   input {
-    border: 1px solid;
-    padding: 0.25rem; /* Tailwind px-2 py-1 */
-    width: 2.5rem; /* Tailwind w-10 */
+    border: 1px solid #d1d5db;
+    padding: 0.5rem;
+    width: 3rem;
     text-align: center;
-    margin: 0 0.5rem; /* Tailwind mx-2 */
+    border-radius: 0.25rem;
   }
 `;
 
 const ActionButtons = styled.div`
   display: flex;
-  flex-direction: column;
-  gap: 0.5rem; /* Tailwind space-y-2 */
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: space-between;
+  margin-top: 1rem;
+  width: 100%;
 
   button {
-    font-weight: 600; /* Tailwind font-semibold */
-    padding: 0.5rem 1rem; /* Tailwind py-2 px-4 */
-    border-radius: 1.5rem; /* Tailwind rounded-3xl */
-    height: 2.5rem; /* Tailwind h-10 */
+    font-weight: 700;
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    flex: 1;
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 
   .add-to-cart {
-    background-color: #6b7280; /* Tailwind bg-gray-500 */
-    color: #fff;
+    background-color: #3b82f6; /* Nền xanh */
+    color: #ffffff;
+    border: none;
+
+    &:hover {
+      background-color: #2563eb; /* Đậm hơn khi hover */
+    }
   }
 
   .view-detail {
-    background-color: #3b82f6; /* Tailwind bg-blue-500 */
-    color: #fff;
+    background-color: #fbbf24; /* Nền vàng */
+    color: #1f2937;
+    border: none;
+
+    &:hover {
+      background-color: #f59e0b; /* Đậm hơn khi hover */
+    }
   }
 `;
 
@@ -135,11 +174,16 @@ const ItemCard = (props) => {
       <ProductDetails>
         <ProductInfo>
           <h2>{product.title}</h2>
-          <p>{product.category}</p>
-          <p>${product.sellPrice}</p>
-          <p className="stock">
-            Stock: {product.quantity ? `Available(${product.quantity})` : "Out of stock"}
-          </p>
+          <div>
+            <p>{product.category}</p>
+            <p>${product.sellPrice}</p>
+            <p className="stock">
+              Stock:{" "}
+              {product.quantity
+                ? `Available(${product.quantity})`
+                : "Out of stock"}
+            </p>
+          </div>
         </ProductInfo>
         <div>
           <QuantityControls>
@@ -155,7 +199,10 @@ const ItemCard = (props) => {
             <button className="add-to-cart" onClick={handleAddToCart}>
               Add to Cart
             </button>
-            <button className="view-detail" onClick={() => onViewDetail(product)}>
+            <button
+              className="view-detail"
+              onClick={() => onViewDetail(product)}
+            >
               View Detail
             </button>
           </ActionButtons>
