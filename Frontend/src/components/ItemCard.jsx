@@ -152,12 +152,11 @@ const ItemCard = (props) => {
       toast.error("Out of stock");
       return;
     }
-
     axiosInstance
       .post(`/cart/${cartId}/add?productId=${product.id}&quantity=${qty}`)
       .then((response) => {
-        setItem(response.data.data.listCartItem);
-        setTotalPrice(response.data.data.totalPrice);
+        setItem(response.data.listCartItem);
+        setTotalPrice(response.data.totalPrice);
         toast.success("Added to cart");
       })
       .catch(() => {
