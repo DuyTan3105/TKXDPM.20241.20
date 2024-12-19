@@ -1,24 +1,14 @@
 package org.example.backend.services.impl;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.dtos.requests.TokenRequest;
-import org.example.backend.dtos.requests.product.ProductDetalsRequest;
-import org.example.backend.dtos.requests.product.ProductsByCategoryRequest;
-import org.example.backend.dtos.responses.AIMSResponse;
-import org.example.backend.dtos.responses.ResponseUtil;
-import org.example.backend.dtos.responses.product.ProductOverviewResponse;
+import org.example.backend.dtos.responses.Pagination;
 import org.example.backend.entities.product.Product;
 import org.example.backend.exceptions.ProductNotAvailableException;
 import org.example.backend.repositories.ProductRepo;
 import org.example.backend.services.ProductService;
-import org.example.backend.utils.JwtTokenUtil;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Locale;
-import java.util.Optional;
-import java.util.stream.Collectors;
 
 
 @Service
@@ -27,8 +17,10 @@ public class ProductServiceImpl implements ProductService {
     private final ProductRepo productRepository;
 
     @Override
-    public List<Product> findAllProduct() {
-        return productRepository.findAll();
+    public Pagination<Object> findAllProduct(int page, int limit) {
+        var pageAble = PageRequest.of(page, limit);
+        Page<Product> products = productRepository.findAll(pageAble);
+        return Pagination.builder().data(products.getContent()).totalPage(products.getTotalPages()).totalItems(products.getTotalElements()).build();
     }
 
     @Override

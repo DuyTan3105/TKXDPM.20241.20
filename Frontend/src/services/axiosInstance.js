@@ -23,7 +23,7 @@ axiosInstance.interceptors.request.use(
 
 // Xử lý Interceptor cho response
 axiosInstance.interceptors.response.use(
-  (response) => response,
+  (response) => response.data,
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem("user");

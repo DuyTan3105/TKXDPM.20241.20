@@ -16,25 +16,38 @@ import Shipping from "./pages/Shipping";
 import RushOrder from "./pages/RushOrder";
 import OrderManager from "./pages/OrderManager";
 import Cart from "./pages/Cart";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"; // Import CSS cho toastify
 const App = () => {
   return (
     <AuthProvider>
       <CartProvider>
-      <Router >
-        <Routes>
-          <Route path="/" element = {<Layout />} >
-            <Route index element = {<Home />} />
-            <Route path="cart" element={<Cart />} />
-            <Route path="shipping" element={<Shipping />} />
-            <Route path="rush-order" element={<RushOrder />} />
-            {/* <Route path="payment" element={<Payment />} /> */}
-            {/* <Route path="result" element={<Result />} /> */}
-            <Route path="login" element={<Login />} />
-            <Route path="order" element={<OrderManager/>} />
-          </Route>
-        </Routes>
-      </Router>
+        {/* ToastContainer với các thiết lập phù hợp */}
+        <ToastContainer
+          position="top-right" // Vị trí hiển thị
+          autoClose={3000} // Thời gian tự động đóng (ms)
+          hideProgressBar={false} // Hiển thị thanh tiến trình
+          newestOnTop={true} // Toast mới nhất xuất hiện ở trên
+          closeOnClick // Đóng khi click
+          rtl={false} // Không hiển thị từ phải sang trái
+          pauseOnFocusLoss={false} // Không dừng khi mất tiêu điểm
+          draggable // Kéo thả được
+          pauseOnHover // Dừng khi hover vào
+          theme="light" // Có thể đổi sang "dark"
+          limit={3} // Giới hạn số lượng toast hiển thị đồng thời
+        />
+        <Router>
+          <Routes>
+            <Route path="/" element={<Layout />}>
+              <Route index element={<Home />} />
+              <Route path="cart" element={<Cart />} />
+              <Route path="shipping" element={<Shipping />} />
+              <Route path="rush-order" element={<RushOrder />} />
+              <Route path="login" element={<Login />} />
+              <Route path="order" element={<OrderManager />} />
+            </Route>
+          </Routes>
+        </Router>
       </CartProvider>
     </AuthProvider>
   );
