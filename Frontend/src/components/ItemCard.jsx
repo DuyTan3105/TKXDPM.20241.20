@@ -131,9 +131,12 @@ const ActionButtons = styled.div`
 `;
 
 const ItemCard = (props) => {
-  const { product, onViewDetail } = props; // Receive onViewDetail as a prop
   const { cartId, setItem, setTotalPrice } = useContext(CartContext);
   const [qty, setQty] = useState(1);
+
+  const onViewDetail = () => {
+    navigate(`/product/${product.id}`);  // Điều hướng tới trang chi tiết sản phẩm
+  };
 
   const incrementQty = () => {
     if (qty < product.quantity) {
