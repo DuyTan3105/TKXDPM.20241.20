@@ -16,7 +16,8 @@ import Layout from "./components/Layout";
 import Shipping from "./pages/Shipping";
 import RushOrder from "./pages/RushOrder";
 import OrderManager from "./pages/OrderManager";
-import Cart from "./pages/cart/Cart";
+import Cart from "./pages/Cart";
+import ProductDetail from "./pages/ProductDetail";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css"; 
 // Import CSS cho toastify
@@ -47,6 +48,7 @@ const App = () => {
               <Route path="rush-order" element={<RushOrder />} />
               <Route path="login" element={<Login />} />
               <Route path="order" element={<OrderManager />} />
+              <Route path="product/:id" element={<ProductDetail />} />
             </Route>
           </Routes>
         </Router>
