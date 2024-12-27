@@ -1,0 +1,21 @@
+/* Custom Card Styles */
+.card {
+  border-radius: 12px; /* Rounded corners for the card */
+}
+
+/* Actions Section Styles */
+.actions-container {
+  gap: 1rem; /* Add space between buttons */
+}
+
+.quantity {
+  font-size: 2rem;
+  font-weight: 600;
+  padding: 0 1rem;
+  text-align: center;
+}
+
+/* Optional: Card shadow */
+.card.mb-3 {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}

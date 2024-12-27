@@ -8,6 +8,7 @@ import {
 import { AuthProvider, AuthContext } from "./contexts/AuthContext";
 import Login from "./pages/Login";
 import Homepage from "./pages/Homepage";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Home from "./pages/Home";
 import { CartProvider } from "./contexts/CartContext";
@@ -15,9 +16,10 @@ import Layout from "./components/Layout";
 import Shipping from "./pages/Shipping";
 import RushOrder from "./pages/RushOrder";
 import OrderManager from "./pages/OrderManager";
-import Cart from "./pages/Cart";
+import Cart from "./pages/cart/Cart";
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css"; // Import CSS cho toastify
+import "react-toastify/dist/ReactToastify.css"; 
+// Import CSS cho toastify
 const App = () => {
   return (
     <AuthProvider>
