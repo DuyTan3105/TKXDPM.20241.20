@@ -14,8 +14,8 @@ export const CartProvider = ({ children }) => {
     axiosInstance
       .get(`/cart/${cartId}`)
       .then((response) => {
-        setItem(response.data.data.listCartItem);
-        setTotalPrice(response.data.data.totalPrice);
+        setItem(response.data.listCartItem);
+        setTotalPrice(response.data.totalPrice);
       })
       .catch((error) => {
         console.error("Error fetching cart:", error);

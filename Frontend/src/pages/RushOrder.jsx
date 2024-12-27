@@ -208,7 +208,7 @@ const RushOrder = () => {
           <Summary />
         </div>
 
-        <div className="flex mt-40">
+        <div style={{ display: "flex", marginTop: "2rem" }}>
           {isShippingData ? (
             <Button onClick={handleRushOrder}>Place Order</Button>
           ) : (
