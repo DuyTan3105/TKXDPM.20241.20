@@ -81,8 +81,8 @@ const Shipping = () => {
       .then((response) => {
         setIsShippingData(true);
         setInitialProvince(formData.province);
-        toast.success("Shipping fee is " + response.data.data);
-        setShippingPrice(response.data.data);
+        toast.success("Shipping fee is " + response.data);
+        setShippingPrice(response.data);
       })
       .catch((error) => {
         toast.error("Error placing order");
@@ -119,12 +119,12 @@ const Shipping = () => {
         shippingFees: shippingPrice,
       })
       .then((response) => {
-        setItemsInLocalStorage('orderId', response.data.data.orderId);
+        setItemsInLocalStorage('orderId', response.data.orderId);
         toast.success("Order placed successfully");
         navigate("/payment", {
           state: {
-            orderId: response.data.data.orderId,
-            totalAmount: response.data.data.totalAmount,
+            orderId: response.data.orderId,
+            totalAmount: response.data.totalAmount,
             formData: formData
           },
         });
