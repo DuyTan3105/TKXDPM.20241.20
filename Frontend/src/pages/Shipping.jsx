@@ -54,10 +54,10 @@ const Shipping = () => {
       }
     }
 
-    if (formData.province !== "Hà Nội") {
-      toast.error("Rush delivery is only available in Hanoi");
-      return;
-    } else { }
+    // if (formData.province !== "Hà Nội") {
+    //   toast.error("Rush delivery is only available in Hanoi");
+    //   return;
+    // } else { }
     navigate("/rush-order", { state: { formData: formData } });
   }
 
@@ -74,7 +74,7 @@ const Shipping = () => {
     }
     axiosInstance
       .get(
-        `delivery-info/shipping-fee?province=${processString(
+        `delivery-info/shipping-fee?cartId=${cartId}&province=${processString(
           formData.province
         )}&isRushDelivery=false`
       )
