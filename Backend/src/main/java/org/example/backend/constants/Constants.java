@@ -15,10 +15,13 @@ public class Constants {
 
 
     public final static int PERCENT_VAT = 10;
-    public final static int RUSH_SHIPPING_FEE = 50000;
-    public final static int SHIPPING_FEE_NORTHERN_VIETNAM = 20000;
-    public final static int SHIPPING_FEE_CENTRAL_VIETNAM = 25000;
-    public final static int SHIPPING_FEE_SOUTHERN_VIETNAM = 30000;
+    public final static int FREE_SHIPPING_THRESHOLD = 100_000;
+    public final static int MAX_FREE_SHIPPING = 25_000;
+    public final static int INNER_CITY_BASE_FEE = 22_000;
+    public final static int OUTER_CITY_BASE_FEE = 30_000;
+    public final static int ADDITIONAL_FEE = 2_500;
+    public final static int RUSH_ORDER_FEE = 10_000;
+
     // Northern Vietnam
     public static final String[] NORTHERN_VIETNAM = {
             "HaNoi", "HaGiang", "CaoBang", "BacKan", "TuyenQuang", "LaoCai",
