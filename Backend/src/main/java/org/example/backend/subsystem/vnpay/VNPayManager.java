@@ -25,7 +25,9 @@ public class VNPayManager implements PaymentStrategy {
     }
 
     @Override
-    public String generateUrl(int amount, String orderId) throws IOException{
+    public String generateUrl(Map<String, Object> data) throws IOException{
+        int amount = (int) data.get("amount");
+        String orderId = (String) data.get("orderId");
         PayRequest payRequest = new PayRequest(amount, orderId);
         return payRequest.generateURL();
     }

@@ -25,10 +25,10 @@ public class PaymentController {
     private final PaymentTransactionRepo paymentTransactionRepository;
     private final RefundTransactionRepo refundTransactionRepository;
     private final PaymentStrategyFactory paymentFactory;
-    @GetMapping("/pay")
-    public ResponseEntity<AIMSResponse<Object>> generateUrl(@RequestParam int amount, @RequestParam String orderId, @RequestParam(defaultValue = "VNPAY") PaymentType paymentType) throws IOException {
+    @PostMapping("/pay")
+    public ResponseEntity<AIMSResponse<Object>> generateUrl(@RequestBody Map<String, Object> data, @RequestParam(defaultValue = "VNPAY") PaymentType paymentType) throws IOException {
         PaymentStrategy strategy = paymentFactory.getStrategy(paymentType);
-        String result = strategy.generateUrl(amount, orderId);
+        String result = strategy.generateUrl(data);
 //        String result = vnpayService.generateUrl(amount, orderId);
 //        ResponseEntity<AIMSResponse<Object>>  response = new AIMSResponse<>(Constants.SUCCESS_CODE, "Success", result);
           return ResponseUtil.success200Response("Success", result);
