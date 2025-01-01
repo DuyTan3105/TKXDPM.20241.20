@@ -103,7 +103,7 @@ const RushOrder = () => {
     }
     axiosInstance
       .get(
-        `delivery-info/shipping-fee?province=${processString(
+        `delivery-info/shipping-fee?cartId=${cartId}&province=${processString(
           state.formData.province
         )}&isRushDelivery=true`
       )
