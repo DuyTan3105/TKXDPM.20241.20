@@ -12,75 +12,166 @@ import styled from "styled-components";
 
 // Styled components
 const Container = styled.div`
-  padding: 0 10rem;
+  background-color: #f8fafc;
+  min-height: 100vh;
+  padding: 40px;
 `;
 
 const StepIndicator = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 2.5rem 0;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  padding: 24px 48px;
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+  margin-bottom: 32px;
 `;
 
 const Step = styled.div`
   font-size: 1.25rem;
-  font-weight: bold;
-  color: ${(props) => (props.active ? "#000" : "#D1D5DB")};
+  font-weight: 600;
+  position: relative;
+  color: ${(props) => (props.active ? "#2563eb" : "#94a3b8")};
+  transition: color 0.3s ease;
+
+  &:after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: ${(props) => (props.active ? "100%" : "0")};
+    height: 2px;
+    background-color: #2563eb;
+    transition: width 0.3s ease;
+  }
+`;
+
+const ContentWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 32px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const RushDeliveryForm = styled.div`
-  font-size: 1.25rem;
-  margin-bottom: 2.5rem;
+  background: white;
+  border-radius: 16px;
+  padding: 32px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+`;
+
+const FormTitle = styled.div`
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid #e2e8f0;
+`;
+
+const FormGroup = styled.div`
+  margin-bottom: 24px;
 `;
 
 const Label = styled.label`
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #475569;
+  margin-bottom: 8px;
 `;
 
 const TimeInputContainer = styled.div`
   display: flex;
+  align-items: center;
+  gap: 16px;
 `;
 
 const TimeInput = styled.input`
-  border: 1px solid #e5e7eb;
-  border-radius: 0.375rem;
-  padding: 0.5rem 1rem;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  width: 150px;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
 `;
 
 const TimeRangeText = styled.div`
-  margin: 0 1rem;
-  font-size: 1rem;
+  color: #64748b;
+  font-weight: 500;
 `;
 
 const InstructionsTextarea = styled.textarea`
-  border: 1px solid #e5e7eb;
-  border-radius: 1rem;
-  padding: 0.5rem 1rem;
-  margin-bottom: 1rem;
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
   font-size: 1rem;
-  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+  }
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  gap: 16px;
+  margin-top: 32px;
 `;
 
 const Button = styled.button`
-  background-color: #000;
+  background: ${(props) => (props.primary ? "#2563eb" : "#1e293b")};
   color: white;
-  padding: 1rem 5rem;
-  border-radius: 1rem;
-  margin-right: 1rem;
+  padding: 14px 32px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: none;
   cursor: pointer;
-  
+  transition: all 0.3s ease;
+
   &:hover {
-    background-color: #333;
+    transform: translateY(-1px);
+    background: ${(props) => (props.primary ? "#1d4ed8" : "#0f172a")};
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
   }
 `;
 
 const CancelButton = styled.div`
-  padding: 1rem 5rem;
-  border-radius: 1rem;
-  border: 1px solid #000;
+  padding: 14px 32px;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+  color: red;
+  font-weight: 600;
+  font-size: 1rem;
   cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+
+  &:hover {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+  }
 `;
 
 const RushOrder = () => {
@@ -90,8 +181,8 @@ const RushOrder = () => {
   const [isShippingData, setIsShippingData] = useState(false);
   const [rushOrderData, setRushOrderData] = useState({
     ...state.formData,
-    fromTime: "",
-    toTime: "",
+    // fromTime: "",
+    // toTime: "",
     instructions: state.formData.instructions,
   });
 
@@ -137,6 +228,19 @@ const RushOrder = () => {
 
   const handleRushOrder = () => {
     // Implement the rush order handling logic
+    if(rushOrderData.fromTime === "") {
+      toast.error("From Time is required");
+      return;
+    }
+    if(rushOrderData.toTime === "") {
+      toast.error("To Time is required");
+      return;
+    }
+    if(rushOrderData.instructions === "") {
+      toast.error("Instructions are required");
+      return;
+    }
+  
     axiosInstance
       .post(`order/place-order?cartId=${cartId}`, {
         receiverName: rushOrderData.name,
@@ -146,16 +250,16 @@ const RushOrder = () => {
         rushDelivery: true,
         instruction: rushOrderData.instructions,
         shippingFees: shippingPrice,
-        rushDeliveryTime: rushOrderData.fromTime
+        rushDeliveryTime: rushOrderData.fromTime,
       })
       .then((response) => {
-        setItemsInLocalStorage('orderId', response.data.orderId);
+        setItemsInLocalStorage("orderId", response.data.orderId);
         toast.success("Order placed successfully");
         navigate("/payment", {
           state: {
             orderId: response.data.orderId,
             totalAmount: response.data.totalAmount,
-            formData: rushOrderData
+            formData: rushOrderData,
           },
         });
       })
@@ -172,12 +276,13 @@ const RushOrder = () => {
         <Step>3. Payment Options</Step>
       </StepIndicator>
 
-      <div>
+      <ContentWrapper>
         <div>
           <RushDeliveryForm>
-            <div className="font-bold text-xl my-10">Rush Delivery Form</div>
-            <div>
-              <Label htmlFor="fromTime">Time</Label>
+            <FormTitle>Rush Delivery Form</FormTitle>
+
+            <FormGroup>
+              <Label htmlFor="fromTime">Delivery Time</Label>
               <TimeInputContainer>
                 <TimeInput
                   id="fromTime"
@@ -193,37 +298,39 @@ const RushOrder = () => {
                   readOnly
                 />
               </TimeInputContainer>
-            </div>
+            </FormGroup>
 
-            <div>
+            <FormGroup>
               <Label htmlFor="instructions">Shipping Instructions</Label>
               <InstructionsTextarea
                 id="instructions"
                 rows="4"
                 value={rushOrderData.instructions}
                 onChange={handleChange}
+                placeholder="Enter any special instructions for delivery..."
               />
-            </div>
+            </FormGroup>
           </RushDeliveryForm>
-          <Summary />
+
+          <ButtonContainer>
+            {isShippingData ? (
+              <Button primary onClick={handleRushOrder}>
+                Place Rush Order
+              </Button>
+            ) : (
+              <Button primary onClick={getShippingPrice}>
+                Calculate Shipping
+              </Button>
+            )}
+
+            <Button onClick={() => navigate("/shipping")}>Normal Order</Button>
+
+            <CancelButton onClick={() => navigate("/")}>Cancel</CancelButton>
+          </ButtonContainer>
         </div>
 
-        <div style={{ display: "flex", marginTop: "2rem" }}>
-          {isShippingData ? (
-            <Button onClick={handleRushOrder}>Place Order</Button>
-          ) : (
-            <Button onClick={getShippingPrice}>Submit data</Button>
-          )}
-
-          <Link to="/shipping">
-            <Button>Place Normal Order</Button>
-          </Link>
-
-          <Link to="/">
-            <CancelButton>Cancel all</CancelButton>
-          </Link>
-        </div>
-      </div>
+        <Summary />
+      </ContentWrapper>
     </Container>
   );
 };

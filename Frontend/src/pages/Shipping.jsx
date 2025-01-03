@@ -190,7 +190,7 @@ const Shipping = () => {
                   onChange={(val) => selectRegion(val)}
                   defaultOptionLabel={"Select a province"}
                   required
-                  style={{
+                  style = {{
                     padding: "10px",
                     marginBottom: "16px",
                     borderRadius: "8px",
@@ -218,9 +218,9 @@ const Shipping = () => {
 
             <ActionButtons>
               {isShippingData ? (
-                <Button type="submit">Place Order</Button>
+                <Button type="submit" style={{background:"#2563eb"}}>Place Order</Button>
               ) : (
-                <Button onClick={getShippingPrice}>Submit data</Button>
+                <Button onClick={getShippingPrice} style={{background:"#2563eb"}}>Submit data</Button>
               )}
 
               <Button onClick={handleRushOrder}>Place Rush Order</Button>
@@ -252,7 +252,7 @@ const StepIndicators = styled.div`
 const Step = styled.h1`
   font-size: 24px;
   font-weight: bold;
-  color: ${(props) => (props.active ? "black" : "gray")};
+  color: ${(props) => (props.active ? "#2563eb" : "gray")};
 `;
 
 const FormContainer = styled.div`
@@ -321,7 +321,7 @@ const Button = styled.button`
   color: white;
   padding: 12px 32px;
   border-radius: 8px;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
 `;
 
@@ -329,8 +329,9 @@ const CancelButton = styled.button`
   padding: 12px 32px;
   border-radius: 8px;
   border: 1px solid #ccc;
-  font-size: 16px;
+  font-size: 18px;
   cursor: pointer;
+  color: red;
 `;
 
 export default Shipping;
