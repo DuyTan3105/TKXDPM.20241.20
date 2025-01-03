@@ -3,10 +3,14 @@ package org.example.backend.controllers;
 import lombok.RequiredArgsConstructor;
 import org.example.backend.dtos.responses.AIMSResponse;
 import org.example.backend.entities.delivery.DeliveryInfo;
+import org.example.backend.entities.order.Order;
+import org.example.backend.entities.order.OrderItem;
 import org.example.backend.services.DeliveryInfoService;
 import org.example.backend.utils.StringUtils;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("${api.prefix}/delivery-info")
@@ -26,7 +30,7 @@ public class DeliveryInfoController {
     }
 
     @GetMapping("/shipping-fee")
-    public ResponseEntity<AIMSResponse<Object>> calculateShippingFee(@RequestParam String province, @RequestParam boolean isRushDelivery) {
-        return deliveryInfoService.calculateShippingFee(province, isRushDelivery);
+    public ResponseEntity<AIMSResponse<Object>> calculateShippingFee(@RequestParam String cartId, @RequestParam String province, @RequestParam boolean isRushDelivery) {
+        return deliveryInfoService.calculateShippingFee(cartId, province, isRushDelivery);
     }
 }

@@ -20,5 +20,14 @@ public class Product {
     protected String type;
     protected String imageURL;
     private boolean rushDeliverySupport;
+
+    protected int length;
+    protected int width;
+    protected int height;
+    protected int weight;
+
+    public int getWeight() {
+        return Math.max(length * width * height / 6000, weight);
+    }
 }
 

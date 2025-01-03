@@ -12,4 +12,9 @@ public class CartItem {
     // Giải pháp: Có thể đổi cách lưu trữ (chỉ lưu bằng id)
     private Product product;
     private int quantity;
+
+    public int getWeight() {
+        return product.getWeight() * quantity;
+    }
+
 }

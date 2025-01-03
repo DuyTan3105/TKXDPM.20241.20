@@ -4,6 +4,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { toast } from "react-toastify";
 import axiosInstance from "../services/axiosInstance";
+import { paymentApi } from "../services/paymentApi";
 const Container = styled.div``;
 
 const Header = styled.div`
@@ -89,20 +90,24 @@ const Payment = () => {
   const [url, setUrl] = useState("");
   const [method, setMethod] = useState("");
 
-  function handlePayOrder() {
+  async function handlePayOrder() {
     if (method === "") {
       toast.error("Please select a payment method");
       return;
     }
 
-    axiosInstance
-      .get(`payment/pay?amount=${totalAmount}&orderId=${orderId}`)
-      .then((response) => {
-        setUrl(response.data);
-      })
-      .catch((error) => {
-        console.log(error.data);
-      });
+    // axiosInstance
+    //   .get(`payment/pay?amount=${totalAmount}&orderId=${orderId}`)
+    //   .then((response) => {
+    //     setUrl(response.data);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.data);
+    //   });
+    const res = await paymentApi({ amount: totalAmount, orderId }, method);
+    if (res && res.code === 200) {
+      setUrl(res.data);
+    } else toast.error("Failed to make payment", res.data);
   }
 
   function handleRushOrder(e) {
@@ -144,7 +149,7 @@ const Payment = () => {
                 type="radio"
                 id="vnpay"
                 name="paymentMethod"
-                value="vnpay"
+                value="VNPAY"
                 onChange={(e) => setMethod(e.target.value)}
               />
               <label htmlFor="vnpay">VnPay</label>

@@ -1,13 +1,15 @@
 package org.example.backend.controllers;
 
 import lombok.RequiredArgsConstructor;
-import org.example.backend.constants.Constants;
+import org.example.backend.constants.enums.PaymentType;
 import org.example.backend.dtos.responses.AIMSResponse;
 import org.example.backend.dtos.responses.ResponseUtil;
 import org.example.backend.entities.payment.PaymentTransaction;
 import org.example.backend.entities.payment.RefundTransaction;
 import org.example.backend.repositories.PaymentTransactionRepo;
 import org.example.backend.repositories.RefundTransactionRepo;
+import org.example.backend.strategies.payment.PaymentStrategy;
+import org.example.backend.strategies.payment.PaymentStrategyFactory;
 import org.example.backend.subsystem.vnpay.VNPayService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,14 +20,16 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api/v1/payment")
 @RequiredArgsConstructor
-public class VNPayController {
+public class PaymentController {
     private final VNPayService vnpayService;
     private final PaymentTransactionRepo paymentTransactionRepository;
     private final RefundTransactionRepo refundTransactionRepository;
-    
-    @GetMapping("/pay")
-    public ResponseEntity<AIMSResponse<Object>> generateUrl(@RequestParam int amount, @RequestParam String orderId) throws IOException {
-        String result = vnpayService.generateUrl(amount, orderId);
+    private final PaymentStrategyFactory paymentFactory;
+    @PostMapping("/pay")
+    public ResponseEntity<AIMSResponse<Object>> generateUrl(@RequestBody Map<String, Object> data, @RequestParam(defaultValue = "VNPAY") PaymentType paymentType) throws IOException {
+        PaymentStrategy strategy = paymentFactory.getStrategy(paymentType);
+        String result = strategy.generateUrl(data);
+//        String result = vnpayService.generateUrl(amount, orderId);
 //        ResponseEntity<AIMSResponse<Object>>  response = new AIMSResponse<>(Constants.SUCCESS_CODE, "Success", result);
           return ResponseUtil.success200Response("Success", result);
     }
