@@ -6,62 +6,179 @@ import { useEffect, useState, useContext } from "react";
 import { CartContext } from "../contexts/CartContext";
 import { convertToVND } from "../utils";
 import styled from "styled-components";
-const Container = styled.div``;
+const Container = styled.div`
+  background-color: #f8fafc;
+  min-height: 100vh;
+`;
 
 const StepHeader = styled.div`
   display: flex;
-  padding: 0 10rem;
   justify-content: space-between;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-  padding: 2.5rem 0;
+  align-items: center;
+  padding: 24px 48px;
+  background: white;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
 `;
 
 const Step = styled.div`
-  font-size: 2rem;
-  font-weight: bold;
-  color: ${(props) => (props.active ? "black" : "#D1D5DB")};
+  font-size: 1.25rem;
+  font-weight: 600;
+  position: relative;
+  color: ${(props) => (props.active ? "#2563eb" : "#94a3b8")};
+  transition: color 0.3s ease;
+  
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: ${(props) => (props.active ? "100%" : "0")};
+    height: 2px;
+    background-color: #2563eb;
+    transition: width 0.3s ease;
+  }
 `;
 
 const Content = styled.div`
-  padding: 0 10rem;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 48px 24px;
 `;
 
 const ResultContainer = styled.div`
-  font-weight: bold;
-  margin: 2.5rem 0;
-  font-size: 1.25rem;
+  background: white;
+  border-radius: 16px;
+  padding: 48px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  text-align: center;
+`;
+
+const StatusIcon = styled.div`
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 32px;
+  border-radius: 50%;
+  background: ${props => props.success ? '#22c55e' : '#ef4444'};
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
+  animation: scaleIn 0.5s ease-out;
+
+  @keyframes scaleIn {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+
+  &:before {
+    content: "${props => props.success ? '✓' : '✕'}";
+    color: white;
+    font-size: 64px;
+  }
 `;
 
 const PaymentStatus = styled.div`
-  font-size: 6rem;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 16px;
+  animation: slideDown 0.5s ease-out;
+
+  @keyframes slideDown {
+    from {
+      transform: translateY(-20px);
+      opacity: 0;
+    }
+    to {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 `;
 
 const Message = styled.div`
-  font-size: 2rem;
-  margin-top: 2.5rem;
+  font-size: 1.5rem;
+  margin: 16px 0;
+  color: ${props => props.success ? '#15803d' : '#b91c1c'};
+  font-weight: 600;
 `;
 
 const Info = styled.div`
-  margin-top: 2.5rem;
+  margin: 12px 0;
+  padding: 12px;
+  border-radius: 8px;
+  color: #475569;
+  font-size: 1.1rem;
+  
+  &:hover {
+    background: #f1f5f9;
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+  }
+`;
+
+const InfoSection = styled.div`
+  background: #f8fafc;
+  padding: 24px;
+  border-radius: 8px;
+  margin: 24px 0;
+`;
+
+const InfoRow = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 12px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #f1f5f9;
+    transform: translateY(-1px);
+    border-radius: 8px;
+  }
+`;
+
+const Label = styled.div`
+  text-align: left;
+  color: #64748b;
+  font-weight: 500;
+`;
+
+const Value = styled.div`
+  text-align: right;
+  color: #1e293b;
+  font-weight: 600;
 `;
 
 const ButtonContainer = styled.div`
+  margin-top: 48px;
   display: flex;
-  margin-top: 10rem;
+  justify-content: center;
 `;
 
 const Button = styled.div`
-  background-color: black;
+  background-color: #2563eb;
   color: white;
-  padding: 0.5rem 5rem;
-  border-radius: 0.75rem;
-  margin-right: 1rem;
+  padding: 16px 48px;
+  border-radius: 12px;
+  font-weight: 600;
   cursor: pointer;
-  text-align: center;
+  transition: all 0.3s ease;
+  
+  &:hover {
+    background-color: #1d4ed8;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
 `;
 
 const Result = () => {
@@ -170,22 +287,37 @@ const Result = () => {
         <Step>2. Shipping Details</Step>
         <Step active>3. Payment Options</Step>
       </StepHeader>
-
+  
       <Content>
         <ResultContainer>
-          <PaymentStatus>PAYMENT RESULT</PaymentStatus>
-          <Message>{vnp_ResponseCode === "00" ? "Successful" : "Failed"}</Message>
-          {vnp_ResponseCode === "00" ? (
-            <>
-              <Info>Amount: {convertToVND(vnp_Amount / 100)}</Info>
-              <Info>{vnp_OrderInfo}</Info>
-              <Info>Date: {vnp_PayDate}</Info>
-              <Info>Code: {vnp_BankTranNo}</Info>
-            </>
-          ) : null}
+          <StatusIcon success={vnp_ResponseCode === "00"} />
+          <PaymentStatus>Payment Result</PaymentStatus>
+          <Message success={vnp_ResponseCode === "00"}>
+            {vnp_ResponseCode === "00" ? "Payment Successful" : "Payment Failed"}
+          </Message>
+          {vnp_ResponseCode === "00" && (
+              <InfoSection>
+              <InfoRow>
+                <Label>Amount</Label>
+                <Value>{convertToVND(vnp_Amount / 100)}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Order Info</Label>
+                <Value>{vnp_OrderInfo}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Date</Label>
+                <Value>{vnp_PayDate}</Value>
+              </InfoRow>
+              <InfoRow>
+                <Label>Transaction Code</Label>
+                <Value>{vnp_BankTranNo}</Value>
+              </InfoRow>
+            </InfoSection>
+          )}
           <ButtonContainer>
             <Link to="/">
-              <Button>Done</Button>
+              <Button>Back to Home</Button>
             </Link>
           </ButtonContainer>
         </ResultContainer>

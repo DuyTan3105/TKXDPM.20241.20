@@ -8,55 +8,150 @@ import styled from "styled-components";
 Modal.setAppElement("#root");
 
 const StyledModal = styled(Modal)`
-  margin: 1rem; /* Tailwind m-4 */
-  padding: 1rem; /* Tailwind p-4 */
-  border: 2px solid #d1d5db; /* Tailwind border-gray-300 */
-  border-radius: 0.375rem; /* Tailwind rounded-md */
-  background-color: #f9fafb; /* Tailwind bg-gray-50 */
-  overflow-y: scroll;
-  height: 80%; /* Tailwind h-4/5 */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  max-height: 90vh;
+  padding: 2rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  overflow-y: auto;
 `;
 
 const Title = styled.h2`
-  margin-bottom: 1rem; /* Tailwind mb-4 */
-  font-weight: bold; /* Tailwind font-bold */
+  font-size: 1.875rem;
+  color: #1f2937;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 0.75rem;
 `;
 
-const SectionTitle = styled.h3`
-  font-size: 1.125rem; /* Tailwind text-lg */
-  margin-top: 1rem; /* Tailwind mt-4 */
+const ProductImage = styled.img`
+  width: 100%;
+  max-height: 400px;
+  object-fit: contain;
+  border-radius: 8px;
+  margin: 1rem 0;
+  background: #f3f4f6;
+  padding: 1rem;
 `;
 
-const CloseButton = styled.button`
-  margin-right: 0.5rem; /* Tailwind mr-2 */
-  padding: 0.5rem 1rem; /* Tailwind px-4 py-2 */
-  background-color: #6b7280; /* Tailwind bg-gray-500 */
-  color: white;
-  border-radius: 0.375rem; /* Tailwind rounded-md */
+const InfoGrid = styled.div`
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  margin: 1.5rem 0;
+`;
+
+const InfoItem = styled.p`
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  background: #f9fafb;
+  border-radius: 6px;
+  
+  strong {
+    color: #4b5563;
+    margin-right: 0.5rem;
+  }
+`;
+
+const QuantityContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin: 2rem 0;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+  justify-content: center;
 `;
 
 const QuantityButton = styled.button`
-  border: 1px solid #d1d5db; /* Tailwind border */
-  background-color: white; /* Tailwind bg-white */
-  padding: 0.25rem 0.5rem; /* Tailwind px-2 py-1 */
-  border-radius: 0.375rem; /* Tailwind rounded */
+  width: 36px;
+  height: 36px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+  color: #4b5563;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #f3f4f6;
+    color: #1f2937;
+  }
 `;
 
 const QuantityInput = styled.input`
-  border: 1px solid #d1d5db; /* Tailwind border */
-  padding: 0.25rem 0.5rem; /* Tailwind px-2 py-1 */
-  width: 2.5rem; /* Tailwind w-10 */
-  text-align: center; /* Tailwind text-center */
-  margin: 0 0.5rem; /* Tailwind mx-2 */
+  width: 60px;
+  height: 36px;
+  border: 1px solid #e5e7eb;
+  border-radius: 6px;
+  text-align: center;
+  margin: 0 0.75rem;
+  font-size: 1rem;
+  color: #1f2937;
+
+  &:focus {
+    outline: 2px solid #60a5fa;
+    border-color: transparent;
+  }
 `;
 
 const AddToCartButton = styled.button`
-  background-color: #6b7280; /* Tailwind bg-gray-500 */
+  width: 100%;
+  padding: 0.875rem;
+  background: #2563eb;
   color: white;
-  font-weight: 600; /* Tailwind font-semibold */
-  padding: 0.5rem 1rem; /* Tailwind py-2 px-4 */
-  border-radius: 1.5rem; /* Tailwind rounded-3xl */
-  margin-top: 1rem; /* Tailwind mt-4 */
+  font-weight: 600;
+  border-radius: 8px;
+  transition: all 0.2s;
+  margin: 1rem 0;
+
+  &:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+`;
+
+const CloseButton = styled.button`
+  padding: 0.75rem 1.5rem;
+  background: #374151;
+  color: white;
+  font-weight: 500;
+  border-radius: 6px;
+  transition: all 0.2s;
+
+  &:hover {
+    background: #4b5563;
+  }
+`;
+
+const ProductSection = styled.div`
+  margin: 1.5rem 0;
+  padding: 1rem;
+  background: #f9fafb;
+  border-radius: 8px;
+`;
+
+const SectionTitle = styled.h3`
+  font-size: 1.25rem;
+  color: #1f2937;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
 `;
 
 const ProductDetailModal = ({ isOpen, onRequestClose, product }) => {
@@ -98,106 +193,118 @@ const ProductDetailModal = ({ isOpen, onRequestClose, product }) => {
 
   return (
     <StyledModal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Product Details">
-      <Title>Product Details</Title>
-      <p>
-        <strong>Title:</strong> {product.title}
-      </p>
-      <p>
-        <strong>Import Price:</strong> {product.importPrice}
-      </p>
-      <p>
-        <strong>Sell Price:</strong> {product.sellPrice}
-      </p>
-      <p>
-        <strong>Quantity:</strong> {product.quantity}
-      </p>
-      <p>
-        <strong>Rush Delivery Support:</strong> {product.rushDeliverySupport ? "Yes" : "No"}
-      </p>
-      <img src={product.imageURL} alt={product.title} style={{ margin: "1rem 0", maxWidth: "100%", height: "auto" }} />
-
+      <Title>{product.title}</Title>
+      
+      <ProductImage src={product.imageURL} alt={product.title} />
+      
+      <InfoGrid>
+        <InfoItem>
+          <strong>Import Price:</strong> ${product.importPrice}
+        </InfoItem>
+        <InfoItem>
+          <strong>Sell Price:</strong> ${product.sellPrice}
+        </InfoItem>
+        <InfoItem>
+          <strong>Quantity:</strong> {product.quantity}
+        </InfoItem>
+        <InfoItem>
+          <strong>Rush Delivery:</strong> {product.rushDeliverySupport ? "Available" : "Not Available"}
+        </InfoItem>
+      </InfoGrid>
+  
       {product.type === "book" && (
-        <>
-          <p>
-            <strong>Author:</strong> {product.author}
-          </p>
-          <p>
-            <strong>Cover Type:</strong> {product.coverType}
-          </p>
-          <p>
-            <strong>Publisher:</strong> {product.publisher}
-          </p>
-          <p>
-            <strong>Publish Date:</strong> {product.publishDate}
-          </p>
-          <p>
-            <strong>Number of Pages:</strong> {product.numOfPages}
-          </p>
-          <p>
-            <strong>Language:</strong> {product.language}
-          </p>
-          <p>
-            <strong>Book Category:</strong> {product.bookCategory}
-          </p>
-        </>
+        <ProductSection>
+          <SectionTitle>Book Details</SectionTitle>
+          <InfoGrid>
+            <InfoItem>
+              <strong>Author:</strong> {product.author}
+            </InfoItem>
+            <InfoItem>
+              <strong>Cover Type:</strong> {product.coverType}
+            </InfoItem>
+            <InfoItem>
+              <strong>Publisher:</strong> {product.publisher}
+            </InfoItem>
+            <InfoItem>
+              <strong>Publish Date:</strong> {product.publishDate}
+            </InfoItem>
+            <InfoItem>
+              <strong>Pages:</strong> {product.numOfPages}
+            </InfoItem>
+            <InfoItem>
+              <strong>Language:</strong> {product.language}
+            </InfoItem>
+            <InfoItem>
+              <strong>Category:</strong> {product.bookCategory}
+            </InfoItem>
+          </InfoGrid>
+        </ProductSection>
       )}
-
+  
       {product.type === "cd" && (
-        <>
-          <p>
-            <strong>Artist:</strong> {product.artist}
-          </p>
-          <p>
-            <strong>Record Label:</strong> {product.recordLabel}
-          </p>
-          <p>
-            <strong>Music Type:</strong> {product.musicType}
-          </p>
-          <p>
-            <strong>Released Date:</strong> {product.releasedDate}
-          </p>
-          <p>
-            <strong>Form:</strong> {product.form}
-          </p>
-        </>
+        <ProductSection>
+          <SectionTitle>CD Details</SectionTitle>
+          <InfoGrid>
+            <InfoItem>
+              <strong>Artist:</strong> {product.artist}
+            </InfoItem>
+            <InfoItem>
+              <strong>Record Label:</strong> {product.recordLabel}
+            </InfoItem>
+            <InfoItem>
+              <strong>Music Type:</strong> {product.musicType}
+            </InfoItem>
+            <InfoItem>
+              <strong>Released Date:</strong> {product.releasedDate}
+            </InfoItem>
+            <InfoItem>
+              <strong>Form:</strong> {product.form}
+            </InfoItem>
+          </InfoGrid>
+        </ProductSection>
       )}
-
+  
       {product.type === "dvd" && (
-        <>
-          <p>
-            <strong>Form:</strong> {product.form}
-          </p>
-          <p>
-            <strong>Disc Type:</strong> {product.discType}
-          </p>
-          <p>
-            <strong>Director:</strong> {product.director}
-          </p>
-          <p>
-            <strong>Runtime:</strong> {product.runtime}
-          </p>
-          <p>
-            <strong>Movie Category:</strong> {product.movieCategory}
-          </p>
-        </>
+        <ProductSection>
+          <SectionTitle>DVD Details</SectionTitle>
+          <InfoGrid>
+            <InfoItem>
+              <strong>Form:</strong> {product.form}
+            </InfoItem>
+            <InfoItem>
+              <strong>Disc Type:</strong> {product.discType}
+            </InfoItem>
+            <InfoItem>
+              <strong>Director:</strong> {product.director}
+            </InfoItem>
+            <InfoItem>
+              <strong>Runtime:</strong> {product.runtime}
+            </InfoItem>
+            <InfoItem>
+              <strong>Category:</strong> {product.movieCategory}
+            </InfoItem>
+          </InfoGrid>
+        </ProductSection>
       )}
-
-      <div style={{ display: "flex", alignItems: "center", marginTop: "1rem" }}>
+  
+      <QuantityContainer>
         <QuantityButton onClick={decrementQty}>-</QuantityButton>
         <QuantityInput
           type="number"
           value={qty}
           onChange={(e) => setQty(parseInt(e.target.value) || 1)}
+          min="1"
+          max={product.quantity}
         />
         <QuantityButton onClick={incrementQty}>+</QuantityButton>
-      </div>
-
-      <AddToCartButton onClick={handleAddToCart}>Add to Cart</AddToCartButton>
-
-      <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "1rem" }}>
-        <CloseButton type="button" onClick={onRequestClose}>
-          Close
-        </CloseButton>
+      </QuantityContainer>
+  
+      <AddToCartButton onClick={handleAddToCart}>
+        Add to Cart - ${(product.sellPrice * qty).toFixed(2)}
+      </AddToCartButton>
+  
+      <div style={{ textAlign: 'right', marginTop: '1rem' }}>
+        <CloseButton onClick={onRequestClose}>Close</CloseButton>
       </div>
     </StyledModal>
   );
