@@ -27,45 +27,45 @@ Project cuối kỳ môn TKXDPM của nhóm 20
 
 ## Report Content:
 
-<details>
+<details open>
     <summary>Đóng góp</summary>
     <br>
 
-<details>
+<details open>
     <summary>Nhóm trưởng: Nguyễn Duy Tấn - 20215478 - 40% </summary>
     
-    - Xây base backend và code Backend các use case về Thanh toán, Invoice, ,Order <br>
-    - Xây base frontend và code Frontend cho Trang Homepage, Thanh toán, kết quả thanh toán, màn rush Order  <br>
-    - Làm SRS, Design Pattern và tham gia hoàn thiện các báo cáo còn lại trong nhóm <br>
+    - Xây base backend và code Backend các use case về Thanh toán, Invoice, ,Order 
+    - Xây base frontend và code Frontend cho Trang Homepage, Thanh toán, kết quả thanh toán, màn rush Order
+    - Làm SRS, Design Pattern và tham gia hoàn thiện các báo cáo còn lại trong nhóm
     - Chỉ ra vấn đề coupling, coheision, solid và thiết kế design pattern
 </details>
 
-<details>
+<details open>
     <summary>Thành viên: Nguyễn Văn Tấn - 20215479 - 30% </summary>
     
-    - Code backend cho usecase về Cart, Delivery, Product, tham gia và việc tái cấu trúc mã nguồn  <br>
-    - Code frontend cho trang quản lý cart cart <br>
-    - Làm SDD, DesignPattern, hoàn thiện UseCase Specification<br>
-    - Chỉ ra vấn đề coupling, coheision, solid và thiết kế design pattern<br>
+    - Code backend cho usecase về Cart, Delivery, Product, tham gia và việc tái cấu trúc mã nguồn
+    - Code frontend cho trang quản lý cart cart
+    - Làm SDD, DesignPattern, hoàn thiện UseCase Specification
+    - Chỉ ra vấn đề coupling, coheision, solid và thiết kế design pattern
 </details>
 
-<details>
+<details open>
     <summary>Thành viên: Lưu Trọng Tấn - 20215477 - 15% </summary>
     
-    - Code Frontend cho trang DeliveryInfo <br>
-    - Làm testPlan và thực hiện kiểm thử cho nhóm<br>
-    - Tham gia xây dựng Class Diagram và Usecase cho nhóm<br>
+    - Code Frontend cho trang DeliveryInfo và tham gia xây dựng component trên UI cho nhóm
+    - Làm testPlan và thực hiện kiểm thử cho nhóm
+    - Tham gia xây dựng Class Diagram và Usecase cho nhóm
 </details>
 
-<details>
+<details open>
     <summary>Thành viên: Lù Mạnh Thắng - 20194167 - 15% </summary>
 
-    - Code Frontend cho trang xem chi tiết product<br>
-    - Làm Usecase Specification cho nhóm <br>
-    - Tham gia xây dựng Class Diagram và Usecase cho nhóm<br>
+    - Code Frontend cho trang xem chi tiết product và xây dựng component của UI cho nhóm
+    - Làm Usecase Specification cho nhóm 
+    - Tham gia xây dựng Class Diagram và Usecase cho nhóm
 </details>
 
-<details>
+<details open>
     <summary>Member: thanongsith thavisack - 20180288 - 0% </summary>
     
     - Không làm project, nhóm không liên lạc được
