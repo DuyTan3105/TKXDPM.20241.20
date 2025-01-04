@@ -1,6 +1,7 @@
 package org.example.backend.entities.product;
 
 import lombok.*;
+import org.example.backend.factories.shipping.ShippingFactory;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -27,7 +28,9 @@ public class Product {
     protected int weight;
 
     public int getWeight() {
-        return Math.max(length * width * height / 6000, weight);
+        ShippingFactory.WeightCalculator calculator = new ShippingFactory.WeightCalculatorFactory()
+                .getCalculator(weight, length, width, height);
+        return (int) calculator.calculateWeight(weight, length, width, height);
     }
 }
 

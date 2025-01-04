@@ -52,8 +52,34 @@ public class DeliveryInfoServiceImpl implements DeliveryInfoService {
         return province.equals("HaNoi") || province.equals("HoChiMinhCity");
     }
 
+    // Vấn đề: vi phạm tính O trong SOLID và control coupling
+    // Giải pháp: Áp dụng Factory Method (Xem trong ShippingFactory)
+    // Giải pháp đã được triển khai
     @Override
     public ResponseEntity<AIMSResponse<Object>> calculateShippingFee(String cartId, String province, boolean isRushDelivery) {
+//        int shippingFee = 0;
+//        for (String provinceName : Constants.NORTHERN_VIETNAM) {
+//            if (province.equalsIgnoreCase(provinceName)) {
+//                shippingFee = Constants.SHIPPING_FEE_NORTHERN_VIETNAM;
+//                break;
+//            }
+//        }
+//        if (province.equalsIgnoreCase("HaNoi") && isRushDelivery) {
+//            shippingFee = Constants.RUSH_SHIPPING_FEE;
+//        }
+//        for (String provinceName : Constants.CENTRAL_VIETNAM) {
+//            if (province.equalsIgnoreCase(provinceName)) {
+//                shippingFee = Constants.SHIPPING_FEE_CENTRAL_VIETNAM;
+//                break;
+//            }
+//        }
+//        for (String provinceName : Constants.SOUTHERN_VIETNAM) {
+//            if (province.equalsIgnoreCase(provinceName)) {
+//                shippingFee = Constants.SHIPPING_FEE_SOUTHERN_VIETNAM;
+//                break;
+//            }
+//        }
+//        return shippingFee;
         Cart cart = cartService.getCart(cartId);
         List<CartItem> listItems = cart.getListCartItem();
         double totalWeight = listItems.stream()
