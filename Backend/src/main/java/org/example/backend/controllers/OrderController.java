@@ -2,7 +2,6 @@ package org.example.backend.controllers;
 
 import lombok.RequiredArgsConstructor;
 import org.example.backend.constants.Constants;
-import org.example.backend.constants.enums.OrderStatus;
 import org.example.backend.dtos.responses.AIMSResponse;
 import org.example.backend.dtos.responses.ResponseUtil;
 import org.example.backend.entities.delivery.DeliveryInfo;
@@ -32,7 +31,21 @@ public class OrderController {
         List<Order> orders = orderService.getAllOrders();
         return ResponseUtil.success200Response("Get all orders successfully", orders);
     }
-
+    //Vấn đề: 3 hàm dưới đây gây ra logical cohesion
+    //Giải pháp:  Gộp thành 1 phương thức duy nhất nhận status làm tham số
+    /*
+    @PutMapping("/update-status/{orderId}")
+public ResponseEntity<AIMSResponse<Object>> updateOrderStatus(
+    @PathVariable String orderId,
+    @RequestParam OrderStatus status
+) {
+    Order order = orderService.updateStatusOrder(orderId, status);
+    return ResponseUtil.success200Response(
+        String.format("Update order status to %s successfully", status),
+        order
+    );
+}
+     */
     @PutMapping("/update-status/approve/{orderId}")
     public ResponseEntity<AIMSResponse<Object>> approveOrder(@PathVariable String orderId) {
         Order order =  orderService.updateStatusOrder(orderId, Constants.ORDER_STATUS_PROCESSING);

@@ -19,8 +19,8 @@ public class VNPayService implements IPaySubsystem {
     }
 
     @Override
-    public String generateUrl(int amount, String orderId) throws IOException {
-        return vnpayManager.generateUrl(Map.of("amount", amount, "orderId", orderId));
+    public String generateUrl(Map<String, Object> data) throws IOException {
+        return vnpayManager.generateUrl(data);
     }
 
     @Override
