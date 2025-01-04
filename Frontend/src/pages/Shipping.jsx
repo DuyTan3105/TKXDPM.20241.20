@@ -253,6 +253,7 @@ const Step = styled.h1`
   font-size: 24px;
   font-weight: bold;
   color: ${(props) => (props.active ? "#2563eb" : "gray")};
+  text-decoration: ${(props) => (props.active ? "underline" : "none")};
 `;
 
 const FormContainer = styled.div`

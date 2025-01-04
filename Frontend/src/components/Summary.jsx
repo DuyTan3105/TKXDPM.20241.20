@@ -14,7 +14,7 @@ const SummaryWrapper = styled.div`
 `;
 
 const Title = styled.h1`
-  font-size: 1.5rem;
+  font-size: 2rem;
   font-weight: 700;
   color: #1e293b;
   margin-bottom: 24px;
@@ -46,6 +46,7 @@ const Row = styled.div`
   div:last-child {
     font-weight: 500;
     color: #1e293b;
+    font-size: 18px;
   }
 `;
 
@@ -55,7 +56,7 @@ const Total = styled.div`
   align-items: center;
   margin-top: 24px;
   padding-top: 16px;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
   font-weight: 700;
   color: #1e293b;
 
