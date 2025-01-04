@@ -5,7 +5,8 @@ import { AuthContext } from "../contexts/AuthContext";
 import { CartContext } from "../contexts/CartContext";
 import { toast } from "react-toastify";
 import { removeItemFromLocalStorage } from "../utils";
-
+import AIMSLogo from '../assets/AIMSLogo.png';
+import trollyIcon from '../assets/trolley.png'
 const HeaderContainer = styled.div`
   header {
     display: flex;
@@ -79,9 +80,10 @@ const Header = () => {
       <header>
         <Link to="/">
           <HeaderButton>
-            <span role="img" aria-label="home">
+            {/* <span role="img" aria-label="home">
               🏠
-            </span>
+            </span> */}
+             <img width={50} src={AIMSLogo} alt="logo" style={{ border: 'none', outline: 'none' }}/>
             <span>AIMS</span>
           </HeaderButton>
         </Link>
@@ -112,10 +114,11 @@ const Header = () => {
 
           <Link to="/cart">
             <div className="cart">
-              <button>
-                <span role="img" aria-label="cart">
+              <button style={{border: 'none', outline: 'none'}}>
+                {/* <span role="img" aria-label="cart">
                   🛒
-                </span>
+                </span> */}
+                <img width={20} src={trollyIcon} alt="logo" style={{ border: 'none', outline: 'none' }}/>
               </button>
               <>
                 <div>Your cart</div>
