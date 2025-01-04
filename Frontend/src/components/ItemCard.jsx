@@ -51,7 +51,7 @@ const ProductInfo = styled.div`
   }
 
   .stock {
-    font-size: 0.875rem;
+    font-size: 1rem;
     font-style: italic;
     color: ${(props) =>
       props.inStock
@@ -67,8 +67,8 @@ const QuantityControls = styled.div`
   gap: 0.5rem; /* Khoảng cách giữa các nút */
 
   button {
-    background-color: #e5e7eb; /* Nền xám nhạt */
-    border: none;
+    background-color: white;
+    border: 1px solid #d1d5db; /* Đường viền xám nhạt */
     padding: 0.5rem 1rem;
     border-radius: 0.5rem;
     font-weight: bold;
