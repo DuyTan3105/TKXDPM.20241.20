@@ -18,8 +18,8 @@ const CartCard = ({ product }) => {
       axiosInstance
         .post(`/cart/${cartId}/add?productId=${product.product.id}&quantity=${qty}`)
         .then((response) => {
-          setItem(response.data.data.listCartItem);
-          setTotalPrice(response.data.data.totalPrice);
+          setItem(response.data.listCartItem);
+          setTotalPrice(response.data.totalPrice);
           toast.success("Quantity updated");
         })
         .catch((error) => {
@@ -32,8 +32,8 @@ const CartCard = ({ product }) => {
     axiosInstance
       .delete(`/cart/${cartId}/remove?productId=${product.product.id}`)
       .then((response) => {
-        setItem(response.data.data.listCartItem);
-        setTotalPrice(response.data.data.totalPrice);
+        setItem(response.data.listCartItem);
+        setTotalPrice(response.data.totalPrice);
         toast.success("Removed from cart");
       })
       .catch((error) => {
