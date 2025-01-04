@@ -23,8 +23,18 @@ public class ProductController {
         return ResponseUtil.success200Response("Get all products successfully", products);
     }
 
+    // Vấn đề: vi phạm tính O trong SOLID và control coupling
+    // Giải pháp: tạo một phương thức createMedia chung và áp dụng factory pattern method
+    // Giải pháp hiện đã được triển khai
     @PostMapping("/create")
     public ResponseEntity<AIMSResponse<Object>> createMedia(@Valid @RequestBody CreateProductRequest request) {
+//        if(request.getMediaType() == MediaType.BOOK) {
+//            Product Media = productService.createBook(request);
+//        } else if(request.getMediaType() == MediaType.CD) {
+//            Product Media = productService.createCD(request);
+//        } else if(request.getMediaType() == MediaType.AUDIO_BOOK) {
+//            Product Media = productService.createẠudioBook(request);
+//        }
         Product media = productService.createMedia(request);
         return ResponseUtil.success201Response("Create media successfully", media);
     }

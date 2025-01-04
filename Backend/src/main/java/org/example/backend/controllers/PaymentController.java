@@ -25,8 +25,18 @@ public class PaymentController {
     private final PaymentTransactionRepo paymentTransactionRepository;
     private final RefundTransactionRepo refundTransactionRepository;
     private final PaymentStrategyFactory paymentFactory;
+
+    // Vấn đề: vi phạm tính O trong SOLID và control coupling
+    // Giải pháp: áp dụng strategy pattern
+    // Giải pháp hiện đã được triển khai
     @PostMapping("/pay")
     public ResponseEntity<AIMSResponse<Object>> generateUrl(@RequestBody Map<String, Object> data, @RequestParam(defaultValue = "VNPAY") PaymentType paymentType) throws IOException {
+//        if(paymentType == PaymentType.VNPAY) {
+//            String result = vnpayService.generateUrl(data);
+//            return ResponseUtil.success200Response("Success", result);
+//        } else if(paymentType == PaymentType.DOMESTIC_CARD) {
+//            // do something
+//        }
         PaymentStrategy strategy = paymentFactory.getStrategy(paymentType);
         String result = strategy.generateUrl(data);
 //        String result = vnpayService.generateUrl(amount, orderId);

@@ -13,7 +13,7 @@ import java.util.Map;
 public interface IPaySubsystem {
 
     PaymentTransaction savePaymentTransaction(Map<String, String> response) throws PaymentException, AIMSException, IOException;
-    String generateUrl(int amount, String orderId) throws IOException;
+    String generateUrl(Map<String,Object> data) throws IOException;
     RefundTransaction refund(PaymentTransaction paymentTransaction) throws IOException;
 
 }
